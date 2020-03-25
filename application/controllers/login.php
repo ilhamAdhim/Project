@@ -18,12 +18,15 @@
 
             $ceklogin = $this->login_model->login($username,$password);
             $user = $ceklogin;
-            // var_dump($user);
             if($ceklogin){
                 array_push($user,$identity = 'Lecturer');
-                foreach ($ceklogin as $row);
-                    # Set user's information for this session
-                    
+                foreach ($ceklogin as $row){
+                # Set user's information for this session
+                
+                $identity = $user[1];
+                
+                if($identity == "Lecturer"){
+                    // var_dump($row);
                     $loggedInUser = array(
                         'user'      => $row->name,
                         'code'      => $row->code,
@@ -32,18 +35,26 @@
                         'NIDN'      => $row->NIDN,
                         'NIP'       => $row->NIP,
                         'username'  => $username,
-                        'identity'  => $user[1]
+                        'identity'  => $identity 
                     );
                     
                     $this->session->set_userdata( $loggedInUser );
                     
+                    redirect('lec_home');
                     
-                    if($this->session->userdata('identity') == "Lecturer"){
-                        redirect('lec_home');
-                    }elseif ($this->session->userdata('identity') == "Admin") {
-                        # code...
+                }elseif ($identity == "Admin") {
+                    
+                    // var_dump($row->name);
+                    $loggedInUser = array(
+                            'user'      => $row->name,
+                            'username'  => $username,
+                            'identity'  => $identity 
+                        );
+
+                        $this->session->set_userdata( $loggedInUser );
+                        
                         redirect('admin_home');
-                    }
+                    }}
             }
             else{
                 $data['pesan'] = 'Incorrect username and password';
