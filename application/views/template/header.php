@@ -19,7 +19,13 @@
 
     </style>
 
-    <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#244282;">
+    <?php if($identity == "Admin"){ ?>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#244282; ">
+    <?php } else{ ?>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#244282;">
+    <?php } ?>
+
+
         <a class="navbar-brand" href="#">
             <img src="<?=base_url()?>assets/images/logo JTI.png" height=100px alt="">
         </a>
@@ -28,7 +34,11 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0 smooth-scroll">
+
+
                 <?php if($identity =='Admin') { ?>
+
+
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Research Group <span class="sr-only">(current)</span></a>
                     </li>
@@ -39,8 +49,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"> Lecturer List </a>
                     </li>
-                   
                 <?php }else{ ?>
+
+
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Personal Information <span class="sr-only">(current)</span></a>
                     </li>
