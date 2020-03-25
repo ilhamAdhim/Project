@@ -23,7 +23,7 @@
                 $loggedInUser = $this->db->get()->result();
                 return $loggedInUser;
             }else{
-                $this->db->select('username,password');
+                $this->db->select('*');
                 $this->db->from('tb_adminlist');
                 $this->db->where('username', $username);
                 
