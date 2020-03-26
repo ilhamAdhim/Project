@@ -50,6 +50,7 @@ class admin_home extends CI_Controller {
         //tb_class
 
         $data = $this->admin_model->getClasses();
+        /* var_dump($data); */
         
         $this->load->view('template/header_admin', $data);
         $this->load->view('home/admins/classes', $data);
@@ -58,7 +59,12 @@ class admin_home extends CI_Controller {
     
     public function subjectList(){
         // tb_subject
-        $data['title'] = '';
+
+        $data = $this->admin_model->getSubjects();
+        $data['title'] = 'Subjects';
+
+        // var_dump($data);
+
         $this->load->view('template/header_admin', $data);
         $this->load->view('home/admins/subjects', $data);
         $this->load->view('template/footer_admin', $data);
@@ -66,8 +72,13 @@ class admin_home extends CI_Controller {
 
     // Lecturers
         public function statusLecturer(){
-            // vu_lecturer_status
+        // vu_lecturer_status
+            
+            $data = $this->admin_model->getLecturerStatus();
             $data['title'] = 'Status Lecturer';
+    
+            /* var_dump($data); */
+
             $this->load->view('template/header_admin', $data);
             $this->load->view('home/admins/lc_status', $data);
             $this->load->view('template/footer_admin', $data);
@@ -75,39 +86,61 @@ class admin_home extends CI_Controller {
 
         public function fieldLecturer(){
             // vu_lecturer_field 
+
+            $data = $this->admin_model->getLecturerField();
             $data['title'] = 'Field Lecturer';
+
+            // var_dump($data);
+
             $this->load->view('template/header_admin', $data);
             $this->load->view('home/admins/lc_fields', $data);
             $this->load->view('template/footer_admin', $data);
         }
 
         public function positionLecturer(){
-        //vu_position
+            //vu_position
+
+            $data = $this->admin_model->getLecturerPosition();
             $data['title'] = 'Position Lecturer';
+
+            /* var_dump($data); */
+
             $this->load->view('template/header_admin', $data);
             $this->load->view('home/admins/lc_position', $data);
             $this->load->view('template/footer_admin', $data);
         }
 
         public function dpaLecturer(){
-        //vu_dpa
+            //vu_dpa
+            $data = $this->admin_model->getLecturerDPA();
             $data['title'] = 'DPA Lecturer';
+
+            /* var_dump($data); */
+
             $this->load->view('template/header_admin', $data);
             $this->load->view('home/admins/lc_dpa', $data);
             $this->load->view('template/footer_admin', $data);
         }
 
         public function researchLecturer(){
-        //vu_research        
+            //vu_research        
+            $data = $this->admin_model->getLecturerResearch();
             $data['title'] = 'Research Group Lecturer';
+
+            /* var_dump($data); */
+
             $this->load->view('template/header_admin', $data);
             $this->load->view('home/admins/lc_research', $data);
             $this->load->view('template/footer_admin', $data);
         }
 
         public function hourDistributionLecturer(){
-            //vu_hour_distribution
+                //vu_hour_distribution
+            $data = $this->admin_model->getHourDistribution();
             $data['title'] = 'Hour Dist.';
+
+            // var_dump($data);
+
             $this->load->view('template/header_admin', $data);
             $this->load->view('home/admins/lc_dist', $data);
             $this->load->view('template/footer_admin', $data);

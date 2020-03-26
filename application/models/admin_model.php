@@ -9,7 +9,6 @@ class admin_model extends CI_Model {
        
     }
 
-
     // Research Groups
         public function getResearchGroupsAmount(){
             $this->db->get('tb_research_category');
@@ -53,6 +52,7 @@ class admin_model extends CI_Model {
             $this->db->where('id', $this->input->post('id'));
             $this->db->update('tb_research_category', $data);
         }
+
 
         public function deleteResearchGroup($id){
             $this->db->where('id', $id);
@@ -123,6 +123,15 @@ class admin_model extends CI_Model {
                 }
             }
 
+        // Research
+            public function getLecturerResearch($code = null){
+                if($code){
+                    return $this->db->get('vu_research', ['code' => $code])->result_array();
+                }else{
+                    return $this->db->get('vu_research')->result_array();
+                }
+            }
+        
         // DPA
             public function getLecturerDPA($code = null){
                 if($code){
@@ -183,6 +192,10 @@ class admin_model extends CI_Model {
         public function getAmountSubjectsByMajor($major){
             $this->db->get_where('tb_subjects',['major' => $major]);
             return $this->db->affected_rows();
+        }
+
+        public function getSubjects(){
+            return $this->db->get('tb_subjects')->result_array();
         }
 
         public function createSubject(){

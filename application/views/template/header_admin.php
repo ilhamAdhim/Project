@@ -24,7 +24,7 @@
 		  		<h1><a href="<?=base_url()?>admin_home" class="logo">Jurusan Teknologi Informasi</a></h1>
 	        <ul class="list-unstyled components mb-5">
 			  <li class="active">
-				<a href="#"> <i class="fa fa-home" aria-hidden="true"></i> Home</a>
+				<a href="<?=base_url()?>admin_home"> <i class="fa fa-home" aria-hidden="true"></i> Home</a>
 			  </li>
 	          <li>
 	            <a href="<?=base_url()?>admin_home/researchGroup"> <i class="fa fa-cogs" aria-hidden="true"></i> Research Groups</a>
