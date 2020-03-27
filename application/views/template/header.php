@@ -69,7 +69,7 @@
                 <?php } ?>
 
                 <li class="nav-item">
-                    <a href=" <?=base_url(); ?>login/logout " class="nav-item nav-link "> Logout </a>
+                    <a href=" <?=base_url(); ?>auth/logout " class="nav-item nav-link "> Logout </a>
                 </li>
 
                 </ul>

@@ -1,7 +1,7 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
     
-    class login extends CI_Controller {
+    class auth extends CI_Controller {
     
         public function __construct(){
             parent::__construct();
@@ -9,6 +9,12 @@
             $this->load->helper('form');
             $this->load->model('login_model');
             $this->load->library('session');   
+        }
+
+        public function index()
+        {
+            $this->load->view('auth/login'); 
+            
         }
 
         public function proses_login(){
@@ -59,20 +65,32 @@
             else{
                 $data['pesan'] = 'Incorrect username and password';
                 $data['title'] = 'Login Failed';
-                $this->load->view('login/login',$data);  
+                $this->load->view('auth/login',$data);  
             } 
+        }
+
+        public function register()
+        {
+            $this->form_validation->set_rules('email','Email','required|valid_email');
+            $this->form_validation->set_rules('pwd1','Password','required');
+            $this->form_validation->set_rules('uname1','Username','required');
+            $this->form_validation->set_rules('identity','Identity','required');
+            
+            
+            if($this->form_validation->run()){
+                $this->register_model->register();
+                redirect('auth');
+            }else{
+                $this->load->view('auth/register');
+            }
         }
     
         public function logout(){
             $this->session->sess_destroy();
-            redirect('login','refresh');
+            redirect('auth','refresh');
         }
 
-        public function index()
-        {
-            $this->load->view('login/login'); 
-            
-        }
+        
 
     }
     

@@ -7,6 +7,10 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- Material Design Bootstrap -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet">
+
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/stylenavbar.css">
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -85,7 +89,7 @@
 	          </li>
 	          
 	          <li>
-              <a href=" <?=base_url(); ?>login/logout " class="nav-item nav-link "> Logout </a>
+              <a href=" <?=base_url(); ?>auth/logout " class="nav-item nav-link "> Logout </a>
               
 	          </li>
 	        </ul>

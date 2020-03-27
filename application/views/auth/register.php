@@ -10,8 +10,10 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/style.css"/>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet">
 
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -33,52 +35,38 @@
 									<?=validation_errors()?>
 								</div>
 							<?php endif?>
-							
-							
+													
 								<form action="" method="post">
-									<div class="form-group">
-										<span class="input-group-addon"><i class="fa fa-user"> </i></span>
-										<label>Codename</label>
-										<div class="input-group">
-											<input required type="text" class="form-control" name="nm" placeholder="Name...">
-										</div>
-									</div>
 
+								<div class="md-form">
+                                        <input type="text" id="inputMDEx" class="form-control"  name="nm"required>
+                                        <label for="inputMDEx">Codename</label>
+                                        <div class="invalid-feedback">Oops, you missed this one.</div>
+                                    </div>
 
-									<div class="form-group">
-										<span class="input-group-addon"><i class="fa fa-envelope"> </i></span>
-	                                    <label>Email</label>
-										<div class="input-group">
-											<input required type="email" class="form-control" name="email" placeholder="Email Address...">
-										</div>
-									</div>
+									<div class="md-form">
+                                        <input type="text" id="inputMDEx" class="form-control" type="email" name="email" required>
+                                        <label for="inputMDEx">Email</label>
+                                        <div class="invalid-feedback">Oops, you missed this one.</div>
+                                    </div>
 
+									<div class="md-form">
+                                        <input type="text" id="inputMDEx" class="form-control" name="uname1" required>
+                                        <label for="inputMDEx">Username</label>
+                                        <div class="invalid-feedback">Oops, you missed this one.</div>
+                                    </div>
 
-									<div class="form-group">
-									<span class="input-group-addon"><i class="fa fa-user-secret"> </i></span>
-                                    <label>Username</label>
-										<div class="input-group">
-											<input required type="username" class="form-control" name="uname1" placeholder="Username...">
-										</div>
-									</div>
+									<div class="md-form">
+                                        <input type="password" id="inputMDEx" class="form-control" type="password" name="pwd1" required>
+                                        <label for="inputMDEx">Password</label>
+                                        <div class="invalid-feedback">Oops, you missed this one.</div>
+                                    </div>
 
-
-									<div class="form-group">
-											<span class="input-group-addon"><i class="fa fa-key"> </i></span>
-                                    <label>Password</label>
-										<div class="input-group">
-											<input required type="password" class="form-control" name="pwd1" placeholder="Password...">
-										</div>
-									</div>
-
-
-									<div class="form-group">
-									<span class="input-group-addon"><i class="fa fa-key"> </i></span>
-                                    <label>Re-enter Password</label>
-										<div class="input-group">
-											<input required type="password" class="form-control" placeholder="Confirm Password...">
-										</div>
-									</div>
+									<div class="md-form">
+                                        <input type="password" id="inputMDEx" class="form-control" name="uname1"required>
+                                        <label for="inputMDEx">Re-enter Password</label>
+                                        <div class="invalid-feedback">Oops, you missed this one.</div>
+                                    </div>
 
 									<div class="form-group container">
 										<div class="row">
@@ -111,7 +99,8 @@
 									<span class="custom-control-description small text-dark">Have an account ?</span>
                                       <a href="<?=base_url();?>">Login</a>
 
-									<button type="submit" name="submit" class="btn btn-success btn-block">Submit</button>
+									<button type="submit" name="submit" class="btn btn-success btn-block">
+										 Register</button>
 								</form>
 							</div>
 
@@ -139,19 +128,16 @@
 	</div>
 	<!--/container-->
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="<?=base_url()?>assets/js/popper.js"></script>
+    <script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>assets/js/main.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/js/mdb.min.js"></script>
 
-
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
 </body>
 
 </html>

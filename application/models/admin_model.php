@@ -22,7 +22,7 @@ class admin_model extends CI_Model {
 
         public function createResearchGroups(){
             $data = [
-                'id'        => $this->input->post('id',true),
+                'rs_id'        => $this->input->post('rs_id',true),
                 'research'  => $this->input->post('research',true)
             ];
 
@@ -49,13 +49,13 @@ class admin_model extends CI_Model {
                 'research'  => $this->input->post('research',true)
             ];
 
-            $this->db->where('id', $this->input->post('id'));
+            $this->db->where('rs_id', $this->input->post('rs_id'));
             $this->db->update('tb_research_category', $data);
         }
 
 
         public function deleteResearchGroup($id){
-            $this->db->where('id', $id);
+            $this->db->where('rs_id', $id);
             $this->db->delete('tb_research_category');
         }
 
@@ -73,25 +73,25 @@ class admin_model extends CI_Model {
         public function createClass(){
             $data = [
                 'cl_id'     => $this->input->post('cl_id'),
-                'cl_major'  => $this->input->post('major'),
-                'cl_level'  => $this->input->post('level'),
-                'cl_name'   => $this->input->post('name')
+                'cl_major'  => $this->input->post('cl_major'),
+                'cl_level'  => $this->input->post('cl_level'),
+                'cl_name'   => $this->input->post('cl_name')
             ];
             $this->db->insert('tb_class',$data);
         }
 
         public function updateClass(){
             $data = [
-                'cl_major'  => $this->input->post('major'),
-                'cl_level'  => $this->input->post('level'),
-                'cl_name'   => $this->input->post('name')
+                'cl_major'  => $this->input->post('cl_major'),
+                'cl_level'  => $this->input->post('cl_level'),
+                'cl_name'   => $this->input->post('cl_name')
             ];
-            $this->db->where('cl_id', $this->input->post('id'));
+            $this->db->where('cl_id', $this->input->post('cl_id'));
             $this->db->update('tb_class', $data);
         }
 
         public function deleteClass($id){
-            $this->db->where('id', $id);
+            $this->db->where('cl_id', $id);
             $this->db->delete('tb_class');
         }
 
@@ -105,6 +105,8 @@ class admin_model extends CI_Model {
                 }
             }
 
+        // Status and Fields edit are available on editLecturer()
+
         // Field
             public function getLecturerField($code = null){
                 if($code){
@@ -113,7 +115,6 @@ class admin_model extends CI_Model {
                     return $this->db->get('vu_lecturer_field')->result();
                 }
             }
-
         // Position
             public function getLecturerPosition($code = null){
                 if($code){
@@ -121,6 +122,16 @@ class admin_model extends CI_Model {
                 }else{
                     return $this->db->get('vu_position_2019')->result();
                 }
+            }
+
+            public function updateLecturerPosition($code){
+                $data = [
+                    'code' => $this->input->post('code'),
+                    'position' => $this->input->post('position')
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('tb_position', $data);
             }
 
         // Research
@@ -132,6 +143,22 @@ class admin_model extends CI_Model {
                 }
             }
         
+            public function updateLecturerReserch($code){
+
+                $rs_id = $this->db->get_where('tb_research_category',
+                [
+                    'research' => $this->input->post('research'),
+                ])->result()->rs_id;
+                
+                $data = [
+                  'rs_id'  => $rs_id,
+                  'priority'  => $this->input->post('priority'),
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->where('rs_id', $rs_id);
+                $this->db->update('tb_researcher', $data);
+            }
         // DPA
             public function getLecturerDPA($code = null){
                 if($code){
@@ -141,7 +168,34 @@ class admin_model extends CI_Model {
                 }
             }
 
-        //Hour Distribution
+            public function updateLecturerDPA($code){
+                // Get a string of class name
+                // Find the cl_id on the database based on the class name
+                $getClassName = $this->input->post('class_name');
+                $destructuredCL_ID = [];
+
+                for ($i=0; $i < getClassName.length(); $i++) { 
+                    array_push($destructuredCL_ID,$getClassName[i]);
+                }
+
+                $classID = $this->db->get_where('tb_class',
+                ['cl_major' => $destructuredCL_ID[0],
+                 'cl_level' => $destructuredCL_ID[1],
+                 'cl_name'  => $destructuredCL_ID[2]
+                ])->result();
+                
+                $data = [
+                    'code' => $this->input->post('code'),
+                    'year' => $this->input->post('year'),
+                    'cl_id_dpa' => $classID,
+                    'semester' => $this->input->post('semester'),
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('tb_dpa', $data);
+            }
+
+        //Hour Distribution - Not done
             public function getHourDistribution($code = null){
                 if($code){
                     return $this->db->get('vu_hour_distribution', ['code' => $code])->result();
