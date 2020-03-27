@@ -30,17 +30,17 @@ class admin_model extends CI_Model {
         }
 
         public function getResearchGroups(){
-            return $this->db->get('tb_research_category')->result_array();
+            return $this->db->order_by('rs_id','DESC')->get('tb_research_category')->result();
         }
 
         public function getSubResearchGroup($research = null){
             if($research){
                 
                 return $this->db->get_where('vu_research_group_details'
-                ,['research' => $research] )->result_array();
+                ,['research' => $research] )->result();
 
             }else{
-                return $this->db->get('vu_research_group_details')->result_array();
+                return $this->db->get('vu_research_group_details')->result();
             }
         }
 
@@ -67,7 +67,7 @@ class admin_model extends CI_Model {
         }
 
         public function getClasses(){
-            return $this->db->get('tb_class')->result_array();
+            return $this->db->get('tb_class')->result();
         }
 
         public function createClass(){
@@ -99,54 +99,54 @@ class admin_model extends CI_Model {
         // Status
             public function getLecturerStatus($code = null){
                 if($code){
-                    return $this->db->get('vu_lecturer_status', ['code' => $code])->result_array();
+                    return $this->db->get('vu_lecturer_status', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_lecturer_status')->result_array();
+                    return $this->db->get('vu_lecturer_status')->result();
                 }
             }
 
         // Field
             public function getLecturerField($code = null){
                 if($code){
-                    return $this->db->get('vu_lecturer_field', ['code' => $code])->result_array();
+                    return $this->db->get('vu_lecturer_field', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_lecturer_field')->result_array();
+                    return $this->db->get('vu_lecturer_field')->result();
                 }
             }
 
         // Position
             public function getLecturerPosition($code = null){
                 if($code){
-                    return $this->db->get('vu_position_2019', ['code' => $code])->result_array();
+                    return $this->db->get('vu_position_2019', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_position_2019')->result_array();
+                    return $this->db->get('vu_position_2019')->result();
                 }
             }
 
         // Research
             public function getLecturerResearch($code = null){
                 if($code){
-                    return $this->db->get('vu_research', ['code' => $code])->result_array();
+                    return $this->db->get('vu_research', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_research')->result_array();
+                    return $this->db->get('vu_research')->result();
                 }
             }
         
         // DPA
             public function getLecturerDPA($code = null){
                 if($code){
-                    return $this->db->get('vu_dpa', ['code' => $code])->result_array();
+                    return $this->db->get('vu_dpa', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_dpa')->result_array();
+                    return $this->db->get('vu_dpa')->result();
                 }
             }
 
         //Hour Distribution
             public function getHourDistribution($code = null){
                 if($code){
-                    return $this->db->get('vu_hour_distribution', ['code' => $code])->result_array();
+                    return $this->db->get('vu_hour_distribution', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_hour_distribution')->result_array();
+                    return $this->db->get('vu_hour_distribution')->result();
                 }
             }
 
@@ -195,7 +195,7 @@ class admin_model extends CI_Model {
         }
 
         public function getSubjects(){
-            return $this->db->get('tb_subjects')->result_array();
+            return $this->db->get('tb_subjects')->result();
         }
 
         public function createSubject(){

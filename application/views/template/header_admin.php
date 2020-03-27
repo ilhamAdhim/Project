@@ -6,22 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-		
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="<?=base_url()?>assets/css/stylenavbar.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?=base_url()?>assets/css/stylenavbar.css">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css">
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+      
+
   </head>
+	<!-- <style>
+		#content { 
+			opacity: 0; 
+			transition: opacity .5s; 
+		} 
+	</style> -->
   <body>
 		
 		<div class="wrapper d-flex align-items-stretch">
-			<nav id="sidebar" style="background:#244282">
+			<nav id="sidebar" style="background:#244282;min-width:300px">
 				<div class="custom-menu">
 					<button type="button" id="sidebarCollapse" class="btn btn-primary">
-	          <i class="fa fa-bars"></i>
-	          <span class="sr-only">Toggle Menu</span>
-	        </button>
-        </div>
+						<i class="fa fa-bars"></i>
+						<span class="sr-only">Toggle Menu</span>
+					</button>
+        		</div>
 				<div class="p-4 pt-5">
-		  		<h1><a href="<?=base_url()?>admin_home" class="logo">Jurusan Teknologi Informasi</a></h1>
+		  		<h1><a href="<?=base_url()?>admin_home" class="logo">JTI</a></h1>
 	        <ul class="list-unstyled components mb-5">
 			  <li class="active">
 				<a href="<?=base_url()?>admin_home"> <i class="fa fa-home" aria-hidden="true"></i> Home</a>
@@ -82,4 +93,4 @@
 	      </div>
     	</nav>
 
-		<div id="content" class="p-4 p-md-5 pt-5">
+		<div id="content" class="p-4 p-md-5 pt-5"  onload="document.body.style.opacity='1'">

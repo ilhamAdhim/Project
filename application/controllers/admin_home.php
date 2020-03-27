@@ -35,8 +35,10 @@ class admin_home extends CI_Controller {
 
     public function researchGroup(){
         //tb_research_category , tb_research_sub_category
-        $data = $this->admin_model->getResearchGroups();
-        $data['title'] = "Research Group";
+        $data = [
+            'researchGroup' => $this->admin_model->getResearchGroups(),
+            'title' => "Research Group"
+        ];
 
         /* var_dump($data); */
         $this->load->view('template/header_admin', $data);
@@ -49,7 +51,8 @@ class admin_home extends CI_Controller {
     public function classList(){
         //tb_class
 
-        $data = $this->admin_model->getClasses();
+        $data['classes'] = $this->admin_model->getClasses();
+        $data['title'] = 'Classes';
         /* var_dump($data); */
         
         $this->load->view('template/header_admin', $data);
@@ -60,7 +63,7 @@ class admin_home extends CI_Controller {
     public function subjectList(){
         // tb_subject
 
-        $data = $this->admin_model->getSubjects();
+        $data['subjects'] = $this->admin_model->getSubjects();
         $data['title'] = 'Subjects';
 
         // var_dump($data);
@@ -74,7 +77,7 @@ class admin_home extends CI_Controller {
         public function statusLecturer(){
         // vu_lecturer_status
             
-            $data = $this->admin_model->getLecturerStatus();
+            $data['lcStatus'] = $this->admin_model->getLecturerStatus();
             $data['title'] = 'Status Lecturer';
     
             /* var_dump($data); */
@@ -87,7 +90,7 @@ class admin_home extends CI_Controller {
         public function fieldLecturer(){
             // vu_lecturer_field 
 
-            $data = $this->admin_model->getLecturerField();
+            $data['lcField'] = $this->admin_model->getLecturerField();
             $data['title'] = 'Field Lecturer';
 
             // var_dump($data);
@@ -100,7 +103,7 @@ class admin_home extends CI_Controller {
         public function positionLecturer(){
             //vu_position
 
-            $data = $this->admin_model->getLecturerPosition();
+            $data['lcPosition'] = $this->admin_model->getLecturerPosition();
             $data['title'] = 'Position Lecturer';
 
             /* var_dump($data); */
@@ -112,7 +115,7 @@ class admin_home extends CI_Controller {
 
         public function dpaLecturer(){
             //vu_dpa
-            $data = $this->admin_model->getLecturerDPA();
+            $data['lcDPA'] = $this->admin_model->getLecturerDPA();
             $data['title'] = 'DPA Lecturer';
 
             /* var_dump($data); */
@@ -124,7 +127,7 @@ class admin_home extends CI_Controller {
 
         public function researchLecturer(){
             //vu_research        
-            $data = $this->admin_model->getLecturerResearch();
+            $data['lcResearch'] = $this->admin_model->getLecturerResearch();
             $data['title'] = 'Research Group Lecturer';
 
             /* var_dump($data); */
@@ -136,7 +139,7 @@ class admin_home extends CI_Controller {
 
         public function hourDistributionLecturer(){
                 //vu_hour_distribution
-            $data = $this->admin_model->getHourDistribution();
+            $data['lcHour'] = $this->admin_model->getHourDistribution();
             $data['title'] = 'Hour Dist.';
 
             // var_dump($data);
