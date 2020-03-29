@@ -1,10 +1,10 @@
 <div class="row">
 
     <!-- GROUP RESEARCH -->
-    <?php if(!empty($group_research)){
-              foreach ($group_research as $gr => $value) { ?>
+    <?php if(!empty($response)){
+              foreach ($response['research'] as $gr => $value) { ?>
     <div class="col-sm-4">
-        <li> <?=$value->research?> : <?=$value->priority?></li>
+        <li> <?=$value['research']?> : <?=$value['priority']?></li>
     </div>
     <?php } 
             } else{ ?>

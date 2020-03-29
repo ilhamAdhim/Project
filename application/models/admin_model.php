@@ -35,10 +35,7 @@ class admin_model extends CI_Model {
 
         public function getSubResearchGroup($research = null){
             if($research){
-                
-                return $this->db->get_where('vu_research_group_details'
-                ,['research' => $research] )->result();
-
+                return $this->db->get_where('vu_research_group_details',['research' => $research] )->result();
             }else{
                 return $this->db->get('vu_research_group_details')->result();
             }

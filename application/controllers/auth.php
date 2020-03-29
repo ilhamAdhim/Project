@@ -8,6 +8,8 @@
             $this->load->helper('url');
             $this->load->helper('form');
             $this->load->model('login_model');
+            $this->load->model('register_model');
+            
             $this->load->library('session');   
         }
 

@@ -11,26 +11,21 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <!-- <?php form_open('admin_home/');?> -->
-                <!-- 
-                <form action="" method="post">
-
-                </form> -->
-                <?php foreach ($val[0] as $key => $value) { ?>
-                    
-                    <div class="md-form">
-                        <input type="text" class="form-control"  name="<?=$key?>" required="">
-                        <label for="<?=$key?>"><?=$key?></label>
-                        <div class="invalid-feedback">Oops, you missed this one.</div>
-                    </div>
-                <?php } ?>
-                <!-- <?= form_close();?> -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form action="" method="post">
+                <div class="modal-body">
+                    <?php foreach ($val[0] as $key => $value) { ?>
+                        <div class="md-form">
+                            <input type="text" class="form-control"  name="<?=$key?>" required="">
+                            <label for="<?=$key?>"><?=$key?></label>
+                            <div class="invalid-feedback">Oops, you missed this one.</div>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form> 
         </div>
     </div>
 </div>
