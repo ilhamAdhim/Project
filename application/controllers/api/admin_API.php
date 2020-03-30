@@ -22,20 +22,16 @@ class admin_API extends REST_Controller {
         
     }
 
-    /* 
+    
     public function index_get()
     {
-        $code = $this->get('code');    
+        // $code = $this->get('code');    
         $res = [
-            // 'id' => $id,
-            'position' => $this->lecturer_model->lecPositionYear($code),
-            'research' => $this->lecturer_model->lecResearchPriority($code),
-            'subject' => $this->lecturer_model->lecSubject($code)
+            'status' => true,
+            'response' => $this->admin_model->getResearchGroups()
         ];
-       
         $this->response($res, 200);
-       
-    } */
+    }
 
     // public function index_delete(){
     //     $id = $this->delete('id');

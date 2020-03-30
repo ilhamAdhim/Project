@@ -27,16 +27,16 @@ THIS IS <?=$title?>
               </table>
           </div>
           <div class="col-md-2 card">
-              <button class="btn btn-info mt-4" style="height: 8em;" data-toggle="modal" data-target="#Create">
+              <button class="btn btn-info mt-4" style="height: 8em;" data-toggle="modal" data-target="#create">
                   <span class="ml-2"><i class="fa fa-plus mr-2" style="font-size: 2.2em;"></i> </span> <br> Create
               </button>
               <br>
-              <button class="btn btn-info" style="height: 8em;" data-toggle="modal" data-target="#Update">
+              <button class="btn btn-info" style="height: 8em;" data-toggle="modal" data-target="#update">
                   <span class="ml-2"><i class="fa fa-refresh mr-2" style="font-size: 2.2em;" aria-hidden="true"></i> </span>
                   <br> Update
               </button>
               <br>
-              <button class="btn btn-info mb-4" style="height: 8em;" data-toggle="modal" data-target="#Delete">
+              <button class="btn btn-info mb-4" style="height: 8em;" data-toggle="modal" data-target="#delete">
                   <span class="ml-2"><i class="fa fa-trash-o mr-2" style="font-size: 2.2em;" aria-hidden="true"></i> </span>
                   <br> Delete
               </button>
@@ -47,11 +47,11 @@ THIS IS <?=$title?>
       
       <?php
       
-      $this->load->view('home/admins/modals', ['target' => 'Create' , 'title' => $title, 'val' => $data]);
+      $this->load->view('home/admins/modals', ['title' => $title, 'val' => $data , 'purpose' => 'create']);
       
-      $this->load->view('home/admins/modals', ['target' => 'Update' , 'title' => $title, 'val' => $data]);
+      $this->load->view('home/admins/modals', ['title' => $title, 'val' => $data , 'purpose' => 'update']);
       
-      $this->load->view('home/admins/modals', ['target' => 'Delete' , 'title' => $title, 'val' => $data]);
+      $this->load->view('home/admins/modals', ['title' => $title, 'val' => $data , 'purpose' => 'delete']);
       
       ?>
       

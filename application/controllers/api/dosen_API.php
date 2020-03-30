@@ -28,9 +28,7 @@ class dosen_API extends REST_Controller {
             'research' => $this->lecturer_model->lecResearchPriority($code),
             'subject' => $this->lecturer_model->lecSubject($code)
         ];
-       
         $this->response($res, 200);
-       
     }
 
     // public function index_delete(){
