@@ -36,6 +36,7 @@
                 if($identity == "Lecturer"){
                     // var_dump($row);
                     $loggedInUser = array(
+                        'loggedIn'    => true,
                         'user'      => $row->name,
                         'code'      => $row->code,
                         'status'    => $row->status,
@@ -81,7 +82,7 @@
             
             if($this->form_validation->run()){
                 $this->register_model->register();
-                redirect('auth');
+                redirect(base_url());
             }else{
                 $this->load->view('auth/register');
             }
@@ -89,7 +90,7 @@
     
         public function logout(){
             $this->session->sess_destroy();
-            redirect('auth','refresh');
+            redirect(base_url(),'refresh');
         }
 
         
