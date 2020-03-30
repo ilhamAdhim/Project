@@ -10,10 +10,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?=form_open('admin_home/'.str_replace(' ','', $purpose.$title));?>
+            <?=form_open('adminController/'.str_replace(' ','',$title).'/'.str_replace(' ','', $purpose.$title));?>
             <form action="" method="post">
                 <div class="modal-body">
-                    <?php foreach ($data[0] as $key => $value) { ?>
+                    <?php foreach ($response['data'][0] as $key => $value) { ?>
                         <div class="md-form">
                             <label for="<?=$key?>"><?=$key?></label>
                         <?php if($purpose === 'update'){ ?>

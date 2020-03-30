@@ -55,6 +55,7 @@
                     
                     // var_dump($row->name);
                     $loggedInUser = array(
+                            'loggedIn'  => true,
                             'user'      => $row->name,
                             'username'  => $username,
                             'identity'  => $identity 
