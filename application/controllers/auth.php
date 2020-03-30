@@ -8,6 +8,8 @@
             $this->load->helper('url');
             $this->load->helper('form');
             $this->load->model('login_model');
+            $this->load->model('register_model');
+            
             $this->load->library('session');   
         }
 
@@ -34,6 +36,7 @@
                 if($identity == "Lecturer"){
                     // var_dump($row);
                     $loggedInUser = array(
+                        'loggedIn'    => true,
                         'user'      => $row->name,
                         'code'      => $row->code,
                         'status'    => $row->status,
@@ -52,6 +55,7 @@
                     
                     // var_dump($row->name);
                     $loggedInUser = array(
+                            'loggedIn'  => true,
                             'user'      => $row->name,
                             'username'  => $username,
                             'identity'  => $identity 
@@ -79,7 +83,7 @@
             
             if($this->form_validation->run()){
                 $this->register_model->register();
-                redirect('auth');
+                redirect(base_url());
             }else{
                 $this->load->view('auth/register');
             }
@@ -87,7 +91,7 @@
     
         public function logout(){
             $this->session->sess_destroy();
-            redirect('auth','refresh');
+            redirect(base_url(),'refresh');
         }
 
         

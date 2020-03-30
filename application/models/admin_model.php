@@ -35,10 +35,7 @@ class admin_model extends CI_Model {
 
         public function getSubResearchGroup($research = null){
             if($research){
-                
-                return $this->db->get_where('vu_research_group_details'
-                ,['research' => $research] )->result();
-
+                return $this->db->get_where('vu_research_group_details',['research' => $research] )->result();
             }else{
                 return $this->db->get('vu_research_group_details')->result();
             }
@@ -105,6 +102,24 @@ class admin_model extends CI_Model {
                 }
             }
 
+            public function updateLecturerStatus(){
+                $data = [
+                    'code' => $this->input->post('code'),
+                ];
+
+                $this->db->update('tb_lecturer', $data);
+            }
+
+            public function deleteLecturerStatus(){
+                $data = [
+                    'code' => $this->input->post('code'),
+                ];
+
+                $this->db->delete('tb_lecturer', $data);
+            }
+
+
+
         // Status and Fields edit are available on editLecturer()
 
         // Field
@@ -115,6 +130,24 @@ class admin_model extends CI_Model {
                     return $this->db->get('vu_lecturer_field')->result();
                 }
             }
+
+            public function updateLecturerField(){
+                $data = [
+                    'code' => $this->input->post('code'),
+                ];
+
+                $this->db->update('tb_lecturer', $data);
+            }
+
+            public function deleteLecturerField(){
+                $data = [
+                    'code' => $this->input->post('code'),
+                ];
+
+                $this->db->delete('tb_lecturer', $data);
+            }
+
+
         // Position
             public function getLecturerPosition($code = null){
                 if($code){
@@ -126,7 +159,15 @@ class admin_model extends CI_Model {
 
             public function updateLecturerPosition($code){
                 $data = [
-                    'code' => $this->input->post('code'),
+                    'position' => $this->input->post('position')
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('tb_position', $data);
+            }
+
+            public function deleteLecturerPosition($code){
+                $data = [
                     'position' => $this->input->post('position')
                 ];
 
@@ -198,9 +239,9 @@ class admin_model extends CI_Model {
         //Hour Distribution - Not done
             public function getHourDistribution($code = null){
                 if($code){
-                    return $this->db->get('vu_hour_distribution', ['code' => $code])->result();
+                    return $this->db->get('vu_class_schedule', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_hour_distribution')->result();
+                    return $this->db->get('vu_class_schedule')->result();
                 }
             }
 
@@ -263,9 +304,7 @@ class admin_model extends CI_Model {
                 'major'         => $this->input->post('major'),
                 'year'          => $this->input->post('year')
             ];
-
             $this->db->insert('tb_subjects', $data);
-            
         }
 
         public function updateSubject(){
@@ -291,6 +330,5 @@ class admin_model extends CI_Model {
 }
 
 /* End of file admin.php */
-
 
 ?>

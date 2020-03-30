@@ -35,9 +35,9 @@
             <!-- <h6>Recent badges</h6>
                       <a href="#" class="badge badge-dark badge-pill">html5</a> -->
 
-            <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
+            <!-- <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
             <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-            <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
+            <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span> -->
         </div>
         <div class="col-md-12">
             <table class="table table-sm table-hover table-striped">

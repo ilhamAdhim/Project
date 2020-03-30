@@ -42,14 +42,14 @@
 				<a href="<?=base_url()?>admin_home"> <i class="fa fa-home" aria-hidden="true"></i> Home</a>
 			  </li>
 	          <li>
-	            <a href="<?=base_url()?>admin_home/researchGroup"> <i class="fa fa-cogs" aria-hidden="true"></i> Research Groups</a>
+	            <a href="<?=base_url()?>adminController/researchGroup"> <i class="fa fa-cogs" aria-hidden="true"></i> Research Groups</a>
 	          </li>
 	          <li>
-	              <a href="<?=base_url()?>admin_home/classList"> <i class="fa fa-cubes" aria-hidden="true"></i> </i> Classes</a>
+	              <a href="<?=base_url()?>adminController/classList"> <i class="fa fa-cubes" aria-hidden="true"></i> </i> Classes</a>
 	          </li>
 
 			  <li>
-              <a href="<?=base_url()?>admin_home/subjectList"> <i class="fa fa-book" aria-hidden="true"></i> Subjects</a>
+              <a href="<?=base_url()?>adminController/subjectList"> <i class="fa fa-book" aria-hidden="true"></i> Subjects</a>
 	          </li>
 
 
@@ -62,27 +62,27 @@
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>admin_home/statusLecturer">Status</a>
+                    <a href="<?=base_url()?>adminController/statusLecturer">Status</a>
                 </li>
 
 				<li>
-                    <a href="<?=base_url()?>admin_home/fieldLecturer">Fields</a>
+                    <a href="<?=base_url()?>adminController/fieldLecturer">Fields</a>
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>admin_home/positionLecturer">Position</a>
+                    <a href="<?=base_url()?>adminController/positionLecturer">Position</a>
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>admin_home/dpaLecturer">DPA</a>
+                    <a href="<?=base_url()?>adminController/dpaLecturer">DPA</a>
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>admin_home/researchLecturer">Research</a>
+                    <a href="<?=base_url()?>adminController/researchLecturer">Research</a>
                 </li>
 				
                 <li>
-                    <a href="<?=base_url()?>admin_home/hourDistributionLecturer">Hour Dist.</a>
+                    <a href="<?=base_url()?>adminController/hourDistributionLecturer">Hour Dist.</a>
                 </li>
 				
               </ul>
