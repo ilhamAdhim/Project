@@ -9,7 +9,7 @@ class lecturer_model extends CI_Model {
     public function __construct()
     {
         parent::__construct();
-        // $this->API = 'http://localhost/Project-dataDosen2/api/lecturer';
+        // $this->API = 'http://localhost/Project-dataDosen/api/lecturer';
     }
 
     // take lecturer's position and it's year and semester on the database

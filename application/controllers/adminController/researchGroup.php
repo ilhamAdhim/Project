@@ -9,7 +9,7 @@ class researchGroup extends CI_Controller {
     public function __construct()
     {        
         parent::__construct();
-        $this->API = 'http://localhost/Project-dataDosen2/api/admins/rsGroup_API';
+        $this->API = 'http://localhost/Project-dataDosen/api/admins/rsGroup_API';
         $this->load->model('admin_model');
         //Do your magic here
     }
@@ -24,8 +24,6 @@ class researchGroup extends CI_Controller {
                 'response' =>  json_decode($result, true),
                 'title' => "Research Group",
             ];
-
-
             $this->load->view('template/header_admin', $researchGroup);
             $this->load->view('home/admins/content', $researchGroup);
             $this->load->view('template/footer_admin', $researchGroup);
@@ -34,21 +32,35 @@ class researchGroup extends CI_Controller {
         }
     }
 
+    
     public function createResearchGroup(){
-        /* $this->API = 'http://localhost/Project-dataDosen2/api/admins/rsGroup_API'; */
         if($this->session->userdata('loggedIn')){
-            $this->admin_model->createResearchGroups();
-            redirect('adminController/researchGroup');
+            if(isset($_POST['submit'])){
+                $data = [
+                    'rs_id'       =>  $this->input->post('rs_id'),
+                    'research'    =>  $this->input->post('research'),
+                ];
+                    
+                $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+                redirect('adminController/researchGroup');
+            }
         }else{
             redirect(base_url());
         }
     }
 
+
     public function updateResearchGroup(){
-        /* $this->API = 'http://localhost/Project-dataDosen2/api/admins/rsGroup_API'; */
         if($this->session->userdata('loggedIn')){
-            $this->admin_model->updateResearchGroup();
-            redirect('adminController/researchGroup');
+            if(isset($_POST['submit'])){
+                $data = [
+                    'rs_id'       =>  $this->input->post('rs_id'),
+                    'research'    =>  $this->input->post('research'),
+                ];
+                    
+                $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+                redirect('adminController/researchGroup');
+            }
         }else{
             redirect(base_url());
         }
@@ -56,10 +68,13 @@ class researchGroup extends CI_Controller {
     }
 
     public function deleteResearchGroup(){
-        /* $this->API = 'http://localhost/Project-dataDosen2/api/admins/rsGroup_API'; */
         if($this->session->userdata('loggedIn')){
-            // $this->curl->delete($this->API.'?rs_id='.);
-            $this->admin_model->deleteResearchGroup($this->input->post('rs_id'));
+            if(isset($_POST['submit'])){
+                $data = [
+                    'rs_id' => $this->input->post('rs_id')
+                ];
+            }
+            $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
             redirect('adminController/researchGroup');
         }else{
             redirect(base_url());

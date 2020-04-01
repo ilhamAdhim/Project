@@ -9,7 +9,7 @@ class lec_home extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->API = 'http://localhost/Project-dataDosen2/api/dosen_API' ;
+        $this->API = 'http://localhost/Project-dataDosen/api/dosen_API' ;
     }
     
     public function index()

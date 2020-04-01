@@ -9,7 +9,7 @@ class researchLecturer extends CI_Controller {
     public function __construct()
     {        
         parent::__construct();
-        $this->API = 'http://localhost/Project-dataDosen2/api/admins/resLec_API';
+        $this->API = 'http://localhost/Project-dataDosen/api/admins/resLec_API';
         
         $this->load->model('admin_model');
         

@@ -9,7 +9,7 @@ class dpaLecturer extends CI_Controller {
     public function __construct()
     {        
         parent::__construct();
-        $this->API = 'http://localhost/Project-dataDosen2/api/admins/dpaLec_API';
+        $this->API = 'http://localhost/Project-dataDosen/api/admins/dpaLec_API';
 
         $this->load->model('admin_model');
         

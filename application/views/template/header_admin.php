@@ -45,11 +45,11 @@
 	            <a href="<?=base_url()?>adminController/researchGroup"> <i class="fa fa-cogs" aria-hidden="true"></i> Research Groups</a>
 	          </li>
 	          <li>
-	              <a href="<?=base_url()?>adminController/classList"> <i class="fa fa-cubes" aria-hidden="true"></i> </i> Classes</a>
+	              <a href="<?=base_url()?>adminController/Classes"> <i class="fa fa-cubes" aria-hidden="true"></i> </i> Classes</a>
 	          </li>
 
 			  <li>
-              <a href="<?=base_url()?>adminController/subjectList"> <i class="fa fa-book" aria-hidden="true"></i> Subjects</a>
+              <a href="<?=base_url()?>adminController/Subjects"> <i class="fa fa-book" aria-hidden="true"></i> Subjects</a>
 	          </li>
 
 

@@ -25,64 +25,37 @@ class class_API extends REST_Controller {
         $this->response($res, 200);
     }
 
-    //  public function index_delete(){
-    //      $rs_id = $this->delete('rs_id');
-
-    //      if($rs_id === null){
-    //          $this->response([
-    //              'status'    => false,
-    //              'message'     => 'Provide an rs_id!'
-    //          ], REST_Controller::HTTP_BAD_REQUEST);
-    //      }else{
-    //          if ($this->admin_model->deleteResearchGroup($id) > 0) {
-    //              echo 'ok';
-    //              $this->response([
-    //                  'status'    => true,
-    //                  'id'        => $id,
-    //                  'message'   => 'deleted'
-    //              ],REST_Controller::HTTP_OK);
-    //              # code...
-    //          }else{
-    //              echo 'id not found';
-    //              $this->response([
-    //                  'status'    => false,
-    //                  'message'   => 'id not found !'
-    //              ],REST_Controller::HTTP_BAD_REQUEST);
-    //          }
-    //      }
-    //  }
-
-     /* public function index_post(){
-
+    function index_post() {
         $data = [
-            'rs_id'     => $this->get('rs_id'),
-            'research'  => $this->get('research')
+            'cl_id'     => $this->post('cl_id'),
+            'cl_major'  => $this->post('cl_major'),
+            'cl_level'  => $this->post('cl_level'),
+            'cl_name'   => $this->post('cl_name')
         ];
-
-         if($this->admin_model->createResearchGroups($data)){
-             echo "SUIPP";
-             $this->response([
-                 'status' => true,
-                 'message' => 'New Research Group has been created'
-             ],REST_Controller::HTTP_CREATED);
-             
-         }else{
-             echo "SALAH";
-             $this->response([
-                 'status' => false,
-                 'message' => 'failed to create a new data@'
-             ],REST_Controller::HTTP_BAD_REQUEST);
-         }
-     }
+        
+        if($this->admin_model->createClass($data) > 0){
+            $this->response([
+                'status' => true,
+                'message' => 'Research Group has been updated'
+            ],REST_Controller::HTTP_OK);
+        }else{
+            $this->response([
+                'status' => false,
+                'message' => 'failed to update data'
+            ],REST_Controller::HTTP_BAD_REQUEST);
+        }
+    }
 
      public function index_put(){
-         $id = $this->put('id');
 
          $data = [
-            'research'  => $this->input->post('research',true)
+            'cl_id'     => $this->put('cl_id'),
+            'cl_major'  => $this->put('cl_major'),
+            'cl_level'  => $this->put('cl_level'),
+            'cl_name'   => $this->put('cl_name')
         ];
 
-         if($this->admin_model->updateResearchGroup($data,$id) > 0){
+         if($this->admin_model->updateClass($data,$id) > 0){
              $this->response([
                  'status' => true,
                  'message' => 'Research Group has been updated'
@@ -93,7 +66,36 @@ class class_API extends REST_Controller {
                  'message' => 'failed to update data'
              ],REST_Controller::HTTP_BAD_REQUEST);
          }
-     } */
+     }
+
+     
+    public function index_delete(){
+        $cl_id = $this->delete('cl_id');
+
+        if($cl_id === null){
+            $this->response([
+                'status'    => false,
+                'message'     => 'Provide an cl_id!'
+            ], REST_Controller::HTTP_BAD_REQUEST);
+        }else{
+            if ($this->admin_model->deleteClass($cl_id) > 0) {
+                echo 'ok';
+                $this->response([
+                    'status'    => true,
+                    'id'        => $cl_id,
+                    'message'   => 'deleted'
+                ],REST_Controller::HTTP_OK);
+                # code...
+            }else{
+                echo 'cl_id not found';
+                $this->response([
+                    'status'    => false,
+                    'message'   => 'cl_id not found !'
+                ],REST_Controller::HTTP_BAD_REQUEST);
+            }
+        }
+    }
+
 
 }
 

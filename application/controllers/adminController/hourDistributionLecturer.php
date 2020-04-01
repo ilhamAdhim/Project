@@ -9,7 +9,7 @@ class hourDistributionLecturer extends CI_Controller {
     public function __construct()
     {        
         parent::__construct();
-        $this->API = 'http://localhost/Project-dataDosen2/api/admins/hourDisLec_API';
+        $this->API = 'http://localhost/Project-dataDosen/api/admins/hourDisLec_API';
         $this->load->model('admin_model');
         
         //Do your magic here

@@ -17,12 +17,12 @@
                         <div class="md-form">
                             <label for="<?=$key?>"><?=$key?></label>
                         <?php if($purpose === 'update'){ ?>
-                            <input type="text" class="form-control"  name="<?=$key?>" required="" value="<?=$value?>">
+                            <input type="text" class="form-control" id="<?=$key?>" name="<?=$key?>" required="" value="<?=$value?>">
                         <?php }else if($purpose === 'delete') { ?>
-                            <input type="text" class="form-control"  name="<?=$key?>">
+                            <input type="text" class="form-control" id="<?=$key?>" name="<?=$key?>">
                             <?php break;?>
                         <?php }else{ ?>
-                            <input type="text" class="form-control"  name="<?=$key?>" required="">
+                            <input type="text" class="form-control" id="<?=$key?>" name="<?=$key?>" required="">
                         <?php } ?>
                             <div class="invalid-feedback">Oops, you missed this one.</div>
                         </div>
@@ -30,7 +30,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <!-- Submit button -->
+                    <?=form_submit('submit','Submit',"class='btn btn-primary'");?>
                 </div>
             </form> 
         </div>

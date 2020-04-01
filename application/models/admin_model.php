@@ -41,12 +41,9 @@ class admin_model extends CI_Model {
             }
         }
 
-        public function updateResearchGroup(){
-            $data = [
-                'research'  => $this->input->post('research',true)
-            ];
+        public function updateResearchGroup($data){
 
-            $this->db->where('rs_id', $this->input->post('rs_id'));
+            $this->db->where('rs_id',$data['rs_id'] );
             $this->db->update('tb_research_category', $data);
         }
 
@@ -67,23 +64,12 @@ class admin_model extends CI_Model {
             return $this->db->get('tb_class')->result();
         }
 
-        public function createClass(){
-            $data = [
-                'cl_id'     => $this->input->post('cl_id'),
-                'cl_major'  => $this->input->post('cl_major'),
-                'cl_level'  => $this->input->post('cl_level'),
-                'cl_name'   => $this->input->post('cl_name')
-            ];
-            $this->db->insert('tb_class',$data);
+        public function createClass($data){
+            $this->db->insert('tb_class', $data);
         }
 
-        public function updateClass(){
-            $data = [
-                'cl_major'  => $this->input->post('cl_major'),
-                'cl_level'  => $this->input->post('cl_level'),
-                'cl_name'   => $this->input->post('cl_name')
-            ];
-            $this->db->where('cl_id', $this->input->post('cl_id'));
+        public function updateClass($data){
+            $this->db->where('cl_id',$data['cl_id']);
             $this->db->update('tb_class', $data);
         }
 
@@ -102,20 +88,22 @@ class admin_model extends CI_Model {
                 }
             }
 
-            public function updateLecturerStatus(){
+            public function updateLecturerStatus($code,$data){
                 $data = [
                     'code' => $this->input->post('code'),
+                    'name'  =>$this->input->post('name'),
+                    'status'=>$this->input->post('status'),
+                    'phone_num' =>$this->input->post('phone_num'),
                 ];
 
+                $this->db->where('code', $code);
                 $this->db->update('tb_lecturer', $data);
             }
 
-            public function deleteLecturerStatus(){
-                $data = [
-                    'code' => $this->input->post('code'),
-                ];
-
-                $this->db->delete('tb_lecturer', $data);
+            public function deleteLecturerStatus($code){
+                $this->db->where('code', $code);
+                $this->db->delete('vu_lecturer_status');
+                
             }
 
 
@@ -293,32 +281,12 @@ class admin_model extends CI_Model {
             return $this->db->get('tb_subjects')->result();
         }
 
-        public function createSubject(){
-            $data = [
-                'subject_code'  => $this->input->post('subject_code'),
-                'subject'       => $this->input->post('subject'),
-                'credit_hour'   => $this->input->post('credit_hour'),
-                'T/P'           => $this->input->post('T/P'),
-                'semester'      => $this->input->post('semester'),
-                'level'         => $this->input->post('level'),
-                'major'         => $this->input->post('major'),
-                'year'          => $this->input->post('year')
-            ];
+        public function createSubject( $data){
             $this->db->insert('tb_subjects', $data);
         }
 
-        public function updateSubject(){
-            $data = [
-                'subject'       => $this->input->post('subject'),
-                'credit_hour'   => $this->input->post('credit_hour'),
-                'T/P'           => $this->input->post('T/P'),
-                'semester'      => $this->input->post('semester'),
-                'level'         => $this->input->post('level'),
-                'major'         => $this->input->post('major'),
-                'year'          => $this->input->post('year')
-            ];
-
-            $this->db->where('subject_code', $this->input->post('subject_code'));
+        public function updateSubject($data){
+            $this->db->where('subject_code', $data['subject_code']);
             $this->db->update('tb_subjects', $data);
         }
 
