@@ -39,7 +39,7 @@
         </div>
 
         <script>
-          $(document).ready(
+          $(document).ready( 
             function(){
                 $('input:file').change(
                     function(){
