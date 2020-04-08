@@ -20,12 +20,7 @@ class admin_model extends CI_Model {
             return $this->db->affected_rows();
         }
 
-        public function createResearchGroups(){
-            $data = [
-                'rs_id'        => $this->input->post('rs_id',true),
-                'research'  => $this->input->post('research',true)
-            ];
-
+        public function createResearchGroups($data = null){
             $this->db->insert('tb_research_category', $data);
         }
 
@@ -64,7 +59,7 @@ class admin_model extends CI_Model {
             return $this->db->get('tb_class')->result();
         }
 
-        public function createClass($data){
+        public function createClass($data = null){
             $this->db->insert('tb_class', $data);
         }
 
@@ -281,7 +276,7 @@ class admin_model extends CI_Model {
             return $this->db->get('tb_subjects')->result();
         }
 
-        public function createSubject( $data){
+        public function createSubject($data = null){
             $this->db->insert('tb_subjects', $data);
         }
 
