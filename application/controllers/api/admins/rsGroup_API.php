@@ -70,11 +70,10 @@ Class rsGroup_API extends REST_Controller {
         if($rs_id === null){
             $this->response([
                 'status'    => false,
-                'message'     => 'Provide an rs_id!'
+                'message'     => 'Provide a rs_id!'
             ], REST_Controller::HTTP_BAD_REQUEST);
         }else{
             if ($this->admin_model->deleteResearchGroup($rs_id) > 0) {
-                echo 'ok';
                 $this->response([
                     'status'    => true,
                     'id'        => $rs_id,
@@ -82,7 +81,6 @@ Class rsGroup_API extends REST_Controller {
                 ],REST_Controller::HTTP_OK);
                 # code...
             }else{
-                echo 'rs_id not found';
                 $this->response([
                     'status'    => false,
                     'message'   => 'rs_id not found !'

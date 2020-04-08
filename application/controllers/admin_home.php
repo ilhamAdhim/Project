@@ -29,7 +29,9 @@ class admin_home extends CI_Controller {
         $this->load->view('template/header_admin', $data);
         $this->load->view('home/adminHome', $data);
         $this->load->view('template/footer_admin', $data);
-    }    
+    }  
+    
+    
 }
 
 /* End of file home.php */

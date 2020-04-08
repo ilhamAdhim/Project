@@ -11,6 +11,7 @@ class researchGroup extends CI_Controller {
         parent::__construct();
         $this->API = 'http://localhost/Project-dataDosen/api/admins/rsGroup_API';
         $this->load->model('admin_model');
+        $this->load->library('Excel');
         //Do your magic here
     }
     
@@ -80,6 +81,54 @@ class researchGroup extends CI_Controller {
             redirect(base_url());
         }
         
+    }
+
+    public function upload(){
+        $fileName = time().$_FILES['file']['name'];
+         
+        $config['upload_path'] = 'assets/'; //buat folder dengan nama assets di root folder
+        $config['file_name'] = $fileName;
+        $config['allowed_types'] = 'xls|xlsx|csv';
+        $config['max_size'] = 10000;
+         
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+         
+        if(! $this->upload->do_upload('file') )
+        $this->upload->display_errors();
+             
+        $media = $this->upload->data('file');
+        $inputFileName = 'assets/'.$fileName;
+         
+        try {
+                $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+                $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                $objPHPExcel = $objReader->load($inputFileName);
+            } catch(Exception $e) {
+                die('Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
+            }
+ 
+            $sheet = $objPHPExcel->getSheet(0);
+            $highestRow = $sheet->getHighestRow();
+            $highestColumn = $sheet->getHighestColumn();
+             
+            for ($row = 2; $row <= $highestRow; $row++){                  //  Read a row of data into an array                 
+                $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                                NULL,
+                                                TRUE,
+                                                FALSE);
+                                                 
+                //Sesuaikan sama nama kolom tabel di database                                
+                 $data = array(
+                    'rs_id'       =>  $rowData[0][0],
+                    'research'    =>  $rowData[0][1]
+                );
+                 
+                //sesuaikan nama dengan nama tabel
+                $insert = $this->admin_model->createResearchGroups($data);
+                delete_files('C:\xampp\htdocs\Project-dataDosen'.pathinfo($inputFileName,PATHINFO_BASENAME));                     
+            }
+            redirect('adminController/researchGroup');
     }
 
 }
