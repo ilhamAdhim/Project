@@ -139,6 +139,50 @@ class Classes extends CI_Controller {
             }
             redirect('adminController/Classes');
     }
+
+    function export(){
+        $object = new PHPExcel();
+  
+        $object->setActiveSheetIndex(0);
+  
+        $table_columns = array("cl_id", "cl_major", "cl_level" , "cl_name");
+  
+        $column = 0;
+  
+        foreach($table_columns as $field){
+  
+          $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+  
+          $column++;
+  
+        }
+  
+        $classes = $this->admin_model->getClasses();
+  
+        $excel_row = 2;
+  
+        foreach($classes as $row){
+  
+          $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->cl_id);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->cl_major);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->cl_level);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->cl_name);
+  
+          $excel_row++;
+  
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+        ob_end_clean();
+  
+        header('Content-Type: application/vnd.ms-excel');
+  
+        header('Content-Disposition: attachment;filename="Classes.xlsx"');
+  
+        $object_writer->save('php://output');
+  
+  
+      }
 }
 
 /* End of file researchGroup.php */

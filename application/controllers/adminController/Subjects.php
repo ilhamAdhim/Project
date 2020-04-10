@@ -147,6 +147,53 @@ class Subjects extends CI_Controller {
             }
             redirect('adminController/Subjects');
     }
+
+    function export(){
+        $object = new PHPExcel();
+  
+        $object->setActiveSheetIndex(0);
+  
+        $table_columns = array("subject_code", "subject", "credit_hour" ,"T/P" , "semester" , "level" ,"major","year");
+  
+        $column = 0;
+  
+        foreach($table_columns as $field){
+  
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column,1, $field);
+            
+          $column++;
+  
+        }
+  
+        $data = $this->admin_model->getSubjects();
+        
+  
+        $excel_row =2;
+  
+        foreach($data as $key){
+          $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $key->subject_code);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $key->subject);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $key->credit_hour);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $key->TP);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $key->semester);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $key->level);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $key->major);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $key->year);
+  
+          $excel_row++;
+  
+        }
+  
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+        ob_end_clean();
+  
+        header('Content-Type: application/vnd.ms-excel');
+  
+        header('Content-Disposition: attachment;filename="Subject List.xlsx"');
+  
+        $object_writer->save('php://output');
+  
+      }
 }
 
 /* End of file researchGroup.php */

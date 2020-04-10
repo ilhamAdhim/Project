@@ -25,7 +25,7 @@ class admin_model extends CI_Model {
         }
 
         public function getResearchGroups(){
-            return $this->db->order_by('rs_id','DESC')->get('tb_research_category')->result();
+            return $this->db->order_by('rs_id')->get('tb_research_category')->result();
         }
 
         public function getSubResearchGroup($research = null){
@@ -56,7 +56,7 @@ class admin_model extends CI_Model {
         }
 
         public function getClasses(){
-            return $this->db->get('tb_class')->result();
+            return $this->db->order_by("cl_id")->get('tb_class')->result();
         }
 
         public function createClass($data = null){
@@ -273,6 +273,7 @@ class admin_model extends CI_Model {
         }
 
         public function getSubjects(){
+            $this->db->order_by('semester');
             return $this->db->get('tb_subjects')->result();
         }
 

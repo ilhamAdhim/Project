@@ -1,12 +1,12 @@
 <!-- $data is acquired from each controller -->
 <div class="row mt-3">
-    <div class="col-md-9 mr-1 card">
+    <div class="col-md-9 mr-1 card p-4">
         <h3>Data <?=$title?></h3>
         <hr>
         <table class="table-striped table table-bordered" id="data-read">
             <thead>
                 <tr>
-                    <!-- <th>#</th> -->
+                    <!-- Column Name -->
                     <?php foreach ($response['data'][0] as $key => $value) { ?>
                     <th> <?=$key?> </th>
                     <!-- <th> <?=$key?> </th> -->
@@ -27,30 +27,45 @@
 
         <hr>
 
-        <div class="card border-alert mb-5">
-            <div class="card-body">
-                <h4 class="card-title">Upload excel file</h4>
-                <p class="card-text">Faster data entry</p>
-                <form action="<?=str_replace(' ','',$title)?>/upload" method="post" enctype="multipart/form-data">
-                    <input name="fileInput" id="fileInput" type="file"  />
-                    <input class="btn btn-info" type="submit" value="Upload file" disabled />
-                </form>
+            <div class="container">
+        <div class="row">
+                <div class="col-sm-6">
+                    <div class="mb-5">
+                        <h4>Upload excel file</h4>
+                        <p>Faster data entry</p>
+                        <form action="<?=str_replace(' ','',$title)?>/upload" method="post"
+                            enctype="multipart/form-data">
+                            <input name="file" id="fileInput" type="file" />
+                            <input class="btn btn-info" type="submit" value="Upload file" disabled />
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h4>Get Excel Data</h4>
+                    <p>Explore data easily</p>
+                    <div class="mt-3 pull-right d-flex align-items-center">
+                    <form method="post" action="<?=str_replace(' ','',$title)?>/export">
+                        <input type="submit" name="export" class="btn btn-success" value="Export" />
+                    </form>
+                    </div>
+                </div>
             </div>
         </div>
-   
+
+
         <script>
-          $(document).ready( 
-            function(){
-                $('input:file').change(
-                    function(){
-                        if ($(this).val()) {
-                            $('input:submit').attr('disabled',false);
-                            // or, as has been pointed out elsewhere:
-                            // $('input:submit').removeAttr('disabled'); 
-                        } 
-                    }
+            $(document).ready(
+                function () {
+                    $('input:file').change(
+                        function () {
+                            if ($(this).val()) {
+                                $('input:submit').attr('disabled', false);
+                                // or, as has been pointed out elsewhere:
+                                // $('input:submit').removeAttr('disabled'); 
+                            }
+                        }
                     );
-            });
+                });
         </script>
 
 
