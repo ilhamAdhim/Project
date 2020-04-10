@@ -97,13 +97,14 @@ class Subjects extends CI_Controller {
     public function upload(){
         $fileName = time().$_FILES['file']['name'];
          
-        $config['upload_path'] = 'assets/'; //buat folder dengan nama assets di root folder
+        $config['upload_path'] = 'assets/'; //create folder assets in root 
         $config['file_name'] = $fileName;
-        $config['allowed_types'] = 'xls|xlsx|csv';
+        $config['allowed_types'] = 'xls|xlsx|csv'; //set file format
         $config['max_size'] = 10000;
          
-        $this->load->library('upload');
-        $this->upload->initialize($config);
+
+        $this->load->library('upload'); //load library upload 
+        $this->upload->initialize($config); //loaded library comes with configuration
          
         if(! $this->upload->do_upload('file') )
         $this->upload->display_errors();
@@ -112,6 +113,7 @@ class Subjects extends CI_Controller {
         $inputFileName = 'assets/'.$fileName;
          
         try {
+            // get the file and read the file name and type
                 $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
                 $objReader = PHPExcel_IOFactory::createReader($inputFileType);
                 $objPHPExcel = $objReader->load($inputFileName);
@@ -129,7 +131,7 @@ class Subjects extends CI_Controller {
                                                 TRUE,
                                                 FALSE);
                                                  
-                //Sesuaikan sama nama kolom tabel di database                                
+                //Match with column names in database
                  $data = array(
                     'subject_code'  => $rowData[0][0],
                     'subject'       => $rowData[0][1],
@@ -141,8 +143,9 @@ class Subjects extends CI_Controller {
                     'year'          => $rowData[0][7]
                 );
                  
-                //sesuaikan nama dengan nama tabel
+                //Match with the model and which function to execute
                 $insert = $this->admin_model->createSubject($data);
+                // use to delete the file as soon as it updates the database
                 // delete_files('C:\xampp\htdocs\Project-dataDosen'.pathinfo($inputFileName,PATHINFO_BASENAME));                     
             }
             redirect('adminController/Subjects');
@@ -150,26 +153,24 @@ class Subjects extends CI_Controller {
 
     function export(){
         $object = new PHPExcel();
-  
+
         $object->setActiveSheetIndex(0);
   
+        // On excel columns
         $table_columns = array("subject_code", "subject", "credit_hour" ,"T/P" , "semester" , "level" ,"major","year");
   
         $column = 0;
   
+        // Fill excel column values
         foreach($table_columns as $field){
-  
-            $object->getActiveSheet()->setCellValueByColumnAndRow($column,1, $field);
-            
-          $column++;
-  
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column,1, $field);    
+            $column++;
         }
   
         $data = $this->admin_model->getSubjects();
-        
-  
         $excel_row =2;
   
+        // Fill the values of row based on excel's column 
         foreach($data as $key){
           $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $key->subject_code);
           $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $key->subject);
@@ -179,16 +180,26 @@ class Subjects extends CI_Controller {
           $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $key->level);
           $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $key->major);
           $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $key->year);
-  
+        
+        
           $excel_row++;
-  
         }
+
+        // Auto size the column width
+        foreach (range('A', $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+            $object->getActiveSheet()
+                ->getColumnDimension($col)
+                ->setAutoSize(true);
+        } 
   
+        // Set the version
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
         ob_end_clean();
   
+        // Set to excel content type
         header('Content-Type: application/vnd.ms-excel');
   
+        // Set the extension
         header('Content-Disposition: attachment;filename="Subject List.xlsx"');
   
         $object_writer->save('php://output');

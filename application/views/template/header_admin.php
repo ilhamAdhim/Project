@@ -78,11 +78,11 @@
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>adminController/researchLecturer">Research</a>
+                    <a href="<?=base_url()?>adminController/researchGroupLecturer">Research</a>
                 </li>
 				
                 <li>
-                    <a href="<?=base_url()?>adminController/hourDistributionLecturer">Hour Dist.</a>
+                    <a href="<?=base_url()?>adminController/HourDist">Hour Dist.</a>
                 </li>
 				
               </ul>

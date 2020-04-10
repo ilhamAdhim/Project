@@ -93,13 +93,14 @@ class Classes extends CI_Controller {
     public function upload(){
         $fileName = time().$_FILES['file']['name'];
          
-        $config['upload_path'] = 'assets/'; //buat folder dengan nama assets di root folder
+        $config['upload_path'] = 'assets/'; //create folder assets in root 
         $config['file_name'] = $fileName;
-        $config['allowed_types'] = 'xls|xlsx|csv';
+        $config['allowed_types'] = 'xls|xlsx|csv'; //set file format
         $config['max_size'] = 10000;
          
-        $this->load->library('upload');
-        $this->upload->initialize($config);
+
+        $this->load->library('upload'); //load library upload 
+        $this->upload->initialize($config); //loaded library comes with configuration
          
         if(! $this->upload->do_upload('file') )
         $this->upload->display_errors();
@@ -108,6 +109,7 @@ class Classes extends CI_Controller {
         $inputFileName = 'assets/'.$fileName;
          
         try {
+            // get the file and read the file name and type
                 $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
                 $objReader = PHPExcel_IOFactory::createReader($inputFileType);
                 $objPHPExcel = $objReader->load($inputFileName);
@@ -125,7 +127,7 @@ class Classes extends CI_Controller {
                                                 TRUE,
                                                 FALSE);
                                                  
-                //Sesuaikan sama nama kolom tabel di database                                
+                //Match with column names in database
                  $data = array(
                     'cl_id'       =>  $rowData[0][0],
                     'cl_major'    =>  $rowData[0][1],
@@ -133,34 +135,33 @@ class Classes extends CI_Controller {
                     'cl_name'     =>  $rowData[0][3]
                 );
                  
-                //sesuaikan nama dengan nama tabel
-                $insert = $this->admin_model->createClass($data);
+                //Match with the model and which function to execute
+                $this->admin_model->createClass($data);
+                // use to delete the file as soon as it updates the database
                 // delete_files('C:\xampp\htdocs\Project-dataDosen'.pathinfo($inputFileName,PATHINFO_BASENAME));                     
             }
-            redirect('adminController/Classes');
+            redirect('adminController/Subjects');
     }
 
     function export(){
         $object = new PHPExcel();
-  
         $object->setActiveSheetIndex(0);
   
+        // On excel columns
         $table_columns = array("cl_id", "cl_major", "cl_level" , "cl_name");
-  
         $column = 0;
   
+        // Fill excel column values
         foreach($table_columns as $field){
-  
           $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
-  
           $column++;
-  
         }
   
         $classes = $this->admin_model->getClasses();
   
         $excel_row = 2;
   
+        // Fill the values of row based on excel's column 
         foreach($classes as $row){
   
           $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->cl_id);
@@ -169,19 +170,26 @@ class Classes extends CI_Controller {
           $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->cl_name);
   
           $excel_row++;
-  
         }
 
+        
+        // Auto size the column width
+        foreach (range('A', $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+            $object->getActiveSheet()
+                ->getColumnDimension($col)
+                ->setAutoSize(true);
+        } 
+
+        // Set the version
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
         ob_end_clean();
   
+        // Set to excel content type
         header('Content-Type: application/vnd.ms-excel');
   
+        // Set the extension
         header('Content-Disposition: attachment;filename="Classes.xlsx"');
-  
         $object_writer->save('php://output');
-  
-  
       }
 }
 

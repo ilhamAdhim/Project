@@ -10,7 +10,8 @@ class positionLecturer extends CI_Controller {
     {        
         parent::__construct();
         $this->API = 'http://localhost/Project-dataDosen/api/admins/posLec_API';
-
+        $this->load->library('Excel');
+        
         $this->load->model('admin_model');
         
         //Do your magic here
@@ -59,6 +60,53 @@ class positionLecturer extends CI_Controller {
         
     }
   
+    function export(){
+        
+        $object = new PHPExcel();
+        $object->setActiveSheetIndex(0);
+
+        // On excel columns
+        $table_columns = array("code", "name" , "position","year", "semester");
+        $column = 0;
+        // Fill excel column values
+        foreach($table_columns as $field){
+          $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+          $column++;
+        }
+  
+        $Position = $this->admin_model->getLecturerPosition();
+        $excel_row = 2;
+        
+        // Fill the values of row based on excel's column 
+        foreach($Position as $row){
+          $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->code);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->name);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->position);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->year);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->semester);
+          $excel_row++;
+        }
+
+        // Auto size the column width
+        foreach (range('A', $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+            $object->getActiveSheet()
+                ->getColumnDimension($col)
+                ->setAutoSize(true);
+        } 
+  
+        // Set the version
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+
+        ob_end_clean();
+        // Set to excel content type
+        header('Content-Type: application/vnd.ms-excel');
+        // Set the extension
+        header('Content-Disposition: attachment;filename="Lecturer-Position.xlsx"');
+
+        $object_writer->save('php://output');
+  
+    }
+
 
 }
 
