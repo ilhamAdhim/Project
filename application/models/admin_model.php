@@ -8,7 +8,8 @@ class admin_model extends CI_Model {
     public function index(){
        
     }
-
+//========================================================================================================================
+//========================================================================================================================
     // Research Groups
         public function getResearchGroupsAmount(){
             $this->db->get('tb_research_category');
@@ -37,7 +38,6 @@ class admin_model extends CI_Model {
         }
 
         public function updateResearchGroup($data){
-
             $this->db->where('rs_id',$data['rs_id'] );
             $this->db->update('tb_research_category', $data);
         }
@@ -48,6 +48,8 @@ class admin_model extends CI_Model {
             $this->db->delete('tb_research_category');
         }
 
+//========================================================================================================================
+//========================================================================================================================
    
     //Classes
         public function getAmountClasses(){
@@ -74,166 +76,169 @@ class admin_model extends CI_Model {
         }
 
     //Lecturers
-        // Status
+//========================================================================================================================
+//========================================================================================================================
+    // Status
             public function getLecturerStatus($code = null){
                 if($code){
-                    return $this->db->get('vu_lecturer_status', ['code' => $code])->result();
+                    return $this->db->get('tb_lec_status', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_lecturer_status')->result();
+                    return $this->db->get('tb_lec_status')->result();
                 }
             }
+            
+            public function createLecturerStatus($data = null){
+                $this->db->insert('tb_lec_status', $data);
+            }
 
-            public function updateLecturerStatus($code,$data){
-                $data = [
-                    'code' => $this->input->post('code'),
-                    'name'  =>$this->input->post('name'),
-                    'status'=>$this->input->post('status'),
-                    'phone_num' =>$this->input->post('phone_num'),
-                ];
-
-                $this->db->where('code', $code);
-                $this->db->update('tb_lecturer', $data);
+            public function updateLecturerStatus($data){
+                $this->db->where('code', $data['code']);
+                $this->db->update('tb_lec_status', $data);
             }
 
             public function deleteLecturerStatus($code){
                 $this->db->where('code', $code);
-                $this->db->delete('vu_lecturer_status');
-                
+                $this->db->delete('tb_lec_status');   
             }
 
-
-
-        // Status and Fields edit are available on editLecturer()
+//========================================================================================================================
+//========================================================================================================================
 
         // Field
             public function getLecturerField($code = null){
                 if($code){
-                    return $this->db->get('vu_lecturer_field', ['code' => $code])->result();
+                    return $this->db->get('tb_lec_field', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_lecturer_field')->result();
+                    return $this->db->get('tb_lec_field')->result();
                 }
             }
 
-            public function updateLecturerField(){
-                $data = [
-                    'code' => $this->input->post('code'),
-                ];
-
-                $this->db->update('tb_lecturer', $data);
-            }
-
-            public function deleteLecturerField(){
-                $data = [
-                    'code' => $this->input->post('code'),
-                ];
-
-                $this->db->delete('tb_lecturer', $data);
+            public function createLecturerField($data = null){
+                $this->db->insert('tb_lec_field', $data);
             }
 
 
+            public function updateLecturerField($data){
+                $this->db->where('code', $data['code']);
+                $this->db->update('tb_lec_field', $data);
+            }
+
+            public function deleteLecturerField($code){
+                $this->db->where('code', $code);
+                $this->db->delete('tb_lec_field');
+            }
+//========================================================================================================================
+//========================================================================================================================
         // Position
             public function getLecturerPosition($code = null){
                 if($code){
-                    return $this->db->get('vu_position_2019', ['code' => $code])->result();
+                    return $this->db->get('tb_lec_position', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_position_2019')->result();
+                    return $this->db->get('tb_lec_position')->result();
                 }
             }
 
-            public function updateLecturerPosition($code){
-                $data = [
-                    'position' => $this->input->post('position')
-                ];
+            public function createLecturerPosition($data = null){
+                $this->db->insert('tb_lec_position', $data);
+            }
 
-                $this->db->where('code', $code);
-                $this->db->update('tb_position', $data);
+
+            public function updateLecturerPosition($data){
+                $this->db->where('code', $data['code']);
+                $this->db->update('tb_lec_position', $data);
             }
 
             public function deleteLecturerPosition($code){
-                $data = [
-                    'position' => $this->input->post('position')
-                ];
-
                 $this->db->where('code', $code);
-                $this->db->update('tb_position', $data);
+                $this->db->delete('tb_lec_position');
             }
+//========================================================================================================================
+//========================================================================================================================
 
         // Research
             public function getLecturerResearch($code = null){
                 if($code){
-                    return $this->db->get('vu_research', ['code' => $code])->result();
+                    return $this->db->get('tb_lec_research', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_research')->result();
+                    return $this->db->get('tb_lec_research')->result();
                 }
             }
-        
-            public function updateLecturerReserch($code){
-
-                $rs_id = $this->db->get_where('tb_research_category',
-                [
-                    'research' => $this->input->post('research'),
-                ])->result()->rs_id;
-                
-                $data = [
-                  'rs_id'  => $rs_id,
-                  'priority'  => $this->input->post('priority'),
-                ];
-
+            public function deleteLecturerResearch($code){
                 $this->db->where('code', $code);
-                $this->db->where('rs_id', $rs_id);
-                $this->db->update('tb_researcher', $data);
+                $this->db->delete('tb_lec_research');
             }
+
+            public function createLecturerResearch($data = null){
+                $this->db->insert('tb_lec_research', $data);
+            }
+
+            public function updateLecturerReserch($data){
+                $this->db->where('code', $data['code']);
+                $this->db->update('tb_lec_research', $data);
+            }
+//========================================================================================================================
+//========================================================================================================================
+
         // DPA
             public function getLecturerDPA($code = null){
                 if($code){
-                    return $this->db->get('vu_dpa', ['code' => $code])->result();
+                    return $this->db->get('tb_lec_dpa', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_dpa')->result();
+                    return $this->db->get('tb_lec_dpa')->result();
                 }
             }
 
-            public function updateLecturerDPA($code){
-                // Get a string of class name
-                // Find the cl_id on the database based on the class name
-                $getClassName = $this->input->post('class_name');
-                $destructuredCL_ID = [];
-
-                for ($i=0; $i < getClassName.length(); $i++) { 
-                    array_push($destructuredCL_ID,$getClassName[i]);
-                }
-
-                $classID = $this->db->get_where('tb_class',
-                ['cl_major' => $destructuredCL_ID[0],
-                 'cl_level' => $destructuredCL_ID[1],
-                 'cl_name'  => $destructuredCL_ID[2]
-                ])->result();
-                
-                $data = [
-                    'code' => $this->input->post('code'),
-                    'year' => $this->input->post('year'),
-                    'cl_id_dpa' => $classID,
-                    'semester' => $this->input->post('semester'),
-                ];
-
+            public function deleteLecturerDPA($code){
                 $this->db->where('code', $code);
-                $this->db->update('tb_dpa', $data);
+                $this->db->update('tb_lec_dpa');
             }
+
+            public function createLecturerDPA($data = null){
+                $this->db->insert('tb_lec_dpa', $data);
+            }
+
+            public function updateLecturerDPA($data){
+                $this->db->where('code', $data['code']);
+                $this->db->update('tb_lec_dpa', $data);
+            }
+//========================================================================================================================
+//========================================================================================================================
 
         //Hour Distribution - Not done
             public function getHourDistribution($code = null){
                 if($code){
-                    return $this->db->get('vu_class_schedule', ['code' => $code])->result();
+                    return $this->db->get('tb_lec_hourdist', ['code' => $code])->result();
                 }else{
-                    return $this->db->get('vu_class_schedule')->result();
+                    return $this->db->get('tb_lec_hourdist')->result();
                 }
             }
+
+            public function deleteHourDistribution($code){
+                $this->db->where('code', $code);
+                $this->db->delete('tb_lec_hourdist');
+            }
+
+
+            public function createHourDistribution($data = null){
+                $this->db->insert('tb_lec_hourdist', $data);
+            }
+
+
+            public function updateHourDistribution($data){
+                
+
+                $this->db->where('code', $data['code']);
+                $this->db->update('tb_lec_hourdist', $data);
+            }
+//========================================================================================================================
+//========================================================================================================================
 
         public function getAmountLecturers(){
             $this->db->get('tb_lecturer');
             return $this->db->affected_rows();
         }
         
-        public function createLecturer(){
+        public function createLecturer($data){
             $data = [
                 'NIP'       => $this->input->post('NIP'),
                 'NIDN'      => $this->input->post('NIDN'),
@@ -264,8 +269,7 @@ class admin_model extends CI_Model {
             $this->db->where('code',$this->input->post('code'));
             $this->db->delete('tb_lecturer');
         }
-
-
+//========================================================================================================================
    //Subjects
         public function getAmountSubjectsByMajor($major){
             $this->db->get_where('tb_subjects',['major' => $major]);
@@ -290,6 +294,7 @@ class admin_model extends CI_Model {
            $this->db->where('subject_code', $subj_code);
            $this->db->delete('tb_subjects');
         }
+//========================================================================================================================
 
 }
 

@@ -36,7 +36,7 @@ class class_API extends REST_Controller {
         if($this->admin_model->createClass($data) > 0){
             $this->response([
                 'status' => true,
-                'message' => 'Research Group has been updated'
+                'message' => 'Class has been updated'
             ],REST_Controller::HTTP_OK);
         }else{
             $this->response([
@@ -55,10 +55,10 @@ class class_API extends REST_Controller {
             'cl_name'   => $this->put('cl_name')
         ];
 
-         if($this->admin_model->updateClass($data,$id) > 0){
+         if($this->admin_model->updateClass($data) > 0){
              $this->response([
                  'status' => true,
-                 'message' => 'Research Group has been updated'
+                 'message' => 'Class has been updated'
              ],REST_Controller::HTTP_OK);
          }else{
              $this->response([

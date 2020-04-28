@@ -62,23 +62,23 @@
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>adminController/statusLecturer">Status</a>
+                    <a href="<?=base_url()?>adminController/StatusLecturer">Status</a>
                 </li>
 
 				<li>
-                    <a href="<?=base_url()?>adminController/fieldLecturer">Fields</a>
+                    <a href="<?=base_url()?>adminController/FieldLecturer">Fields</a>
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>adminController/positionLecturer">Position</a>
+                    <a href="<?=base_url()?>adminController/PositionLecturer">Position</a>
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>adminController/dpaLecturer">DPA</a>
+                    <a href="<?=base_url()?>adminController/DPALecturer">DPA</a>
                 </li>
 
                 <li>
-                    <a href="<?=base_url()?>adminController/researchGroupLecturer">Research</a>
+                    <a href="<?=base_url()?>adminController/ResearchGroupLecturer">Research</a>
                 </li>
 				
                 <li>

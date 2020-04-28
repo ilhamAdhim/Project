@@ -24,68 +24,40 @@ class dpaLec_API extends REST_Controller {
         ];
         $this->response($res, 200);
     }
-
-    //  public function index_delete(){
-    //      $rs_id = $this->delete('rs_id');
-
-    //      if($rs_id === null){
-    //          $this->response([
-    //              'status'    => false,
-    //              'message'     => 'Provide an rs_id!'
-    //          ], REST_Controller::HTTP_BAD_REQUEST);
-    //      }else{
-    //          if ($this->admin_model->deleteResearchGroup($id) > 0) {
-    //              echo 'ok';
-    //              $this->response([
-    //                  'status'    => true,
-    //                  'id'        => $id,
-    //                  'message'   => 'deleted'
-    //              ],REST_Controller::HTTP_OK);
-    //              # code...
-    //          }else{
-    //              echo 'id not found';
-    //              $this->response([
-    //                  'status'    => false,
-    //                  'message'   => 'id not found !'
-    //              ],REST_Controller::HTTP_BAD_REQUEST);
-    //          }
-    //      }
-    //  }
-
-     /* public function index_post(){
-
+    function index_post() {
         $data = [
-            'rs_id'     => $this->get('rs_id'),
-            'research'  => $this->get('research')
+            'code'       => $this->post('code'),
+            'year'       => $this->post('year'),
+            'cl_id_dpa'  => $this->post('cl_id_dpa'),
+            'semester'   => $this->post('semester')
         ];
-
-         if($this->admin_model->createResearchGroups($data)){
-             echo "SUIPP";
-             $this->response([
-                 'status' => true,
-                 'message' => 'New Research Group has been created'
-             ],REST_Controller::HTTP_CREATED);
-             
-         }else{
-             echo "SALAH";
-             $this->response([
-                 'status' => false,
-                 'message' => 'failed to create a new data@'
-             ],REST_Controller::HTTP_BAD_REQUEST);
-         }
-     }
+        
+        if($this->admin_model->createLecturerDPA($data) > 0){
+            $this->response([
+                'status' => true,
+                'message' => 'Lecturer DPA has been updated'
+            ],REST_Controller::HTTP_OK);
+        }else{
+            $this->response([
+                'status' => false,
+                'message' => 'failed to update data'
+            ],REST_Controller::HTTP_BAD_REQUEST);
+        }
+    }
 
      public function index_put(){
-         $id = $this->put('id');
 
          $data = [
-            'research'  => $this->input->post('research',true)
+            'code'       => $this->put('code'),
+            'year'       => $this->put('year'),
+            'cl_id_dpa'  => $this->put('cl_id_dpa'),
+            'semester'   => $this->put('semester')
         ];
 
-         if($this->admin_model->updateResearchGroup($data,$id) > 0){
+         if($this->admin_model->updateLecturerDPA($data) > 0){
              $this->response([
                  'status' => true,
-                 'message' => 'Research Group has been updated'
+                 'message' => 'Lecturer DPA has been updated'
              ],REST_Controller::HTTP_OK);
          }else{
              $this->response([
@@ -93,7 +65,35 @@ class dpaLec_API extends REST_Controller {
                  'message' => 'failed to update data'
              ],REST_Controller::HTTP_BAD_REQUEST);
          }
-     } */
+     }
+
+     
+    public function index_delete(){
+        $code = $this->delete('code');
+
+        if($code === null){
+            $this->response([
+                'status'    => false,
+                'message'     => 'Provide a code!'
+            ], REST_Controller::HTTP_BAD_REQUEST);
+        }else{
+            if ($this->admin_model->deleteLecturerDPA($code) > 0) {
+                echo 'ok';
+                $this->response([
+                    'status'    => true,
+                    'id'        => $code,
+                    'message'   => 'deleted'
+                ],REST_Controller::HTTP_OK);
+                # code...
+            }else{
+                echo 'code not found';
+                $this->response([
+                    'status'    => false,
+                    'message'   => 'code not found !'
+                ],REST_Controller::HTTP_BAD_REQUEST);
+            }
+        }
+    }
 
 }
 

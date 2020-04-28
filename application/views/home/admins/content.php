@@ -3,36 +3,42 @@
     <div class="col-md-9 mr-1 card p-4">
         <h3>Data <?=$title?></h3>
         <hr>
-        <table class="table-striped table table-bordered" id="data-read">
-            <thead>
-                <tr>
-                    <!-- Column Name -->
-                    <?php foreach ($response['data'][0] as $key => $value) { ?>
-                    <th> <?=$key?> </th>
-                    <!-- <th> <?=$key?> </th> -->
+        <?php if($response['data'] != null){ ?>
+            <table class="table-striped table table-bordered" id="data-read">
+                <thead>
+                    <tr>
+                        <!-- Column Name -->
+                        <?php foreach ($response['data'][0] as $key => $value) { ?>
+                        <th> <?=$key?> </th>
+                        <!-- <th> <?=$key?> </th> -->
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no=1;
+                        foreach ($response['data'] as $cl) { ?>
+                    <tr>
+                        <?php foreach($cl as $key){ ?>
+                        <td> <?=$key?> </td>
+                        <?php } ?>
+                    </tr>
                     <?php } ?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $no=1;
-                      foreach ($response['data'] as $cl) { ?>
-                <tr>
-                    <?php foreach($cl as $key){ ?>
-                    <td> <?=$key?> </td>
-                    <?php } ?>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-
+                </tbody>
+            </table>
+        <?php }else{ ?>
+            <h3><center>No entry in <?=$title?></center></h3>
+        <?php } ?>
         <hr>
 
-            <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
                 <div class="col-sm-6">
-                    <div class="mb-5">
-                        <h4>Upload excel file</h4>
-                        <p>Faster data entry</p>
+                    <div class="ml-4">
+                        <h4>Upload excel file</h4> <br>
+                        <p>Input data faster</p>
+                    </div>
+                    <div class="mt-3 pull-right d-flex align-items-center">
+                        
                         <form action="<?=str_replace(' ','',$title)?>/upload" method="post"
                             enctype="multipart/form-data">
                             <input name="file" id="fileInput" type="file" />
@@ -41,12 +47,17 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <h4>Get Excel Data</h4>
-                    <p>Explore data easily</p>
+                    <h4>Get Excel Data</h4> <br>
+                    <p>Get template of CSV or Export the whole data </p>
+                    <div class="mt-3 pull-left d-flex align-items-center">
+                        <form method="post" action="<?=str_replace(' ','',$title)?>/template">
+                            <input type="submit" name="template" class="btn btn-success" value="CSV Template" />
+                        </form>
+                    </div>
                     <div class="mt-3 pull-right d-flex align-items-center">
-                    <form method="post" action="<?=str_replace(' ','',$title)?>/export">
-                        <input type="submit" name="export" class="btn btn-success" value="Export" />
-                    </form>
+                        <form method="post" action="<?=str_replace(' ','',$title)?>/export">
+                            <input type="submit" name="export" class="btn btn-success" value="Export" />
+                        </form>
                     </div>
                 </div>
             </div>
@@ -60,8 +71,6 @@
                         function () {
                             if ($(this).val()) {
                                 $('input:submit').attr('disabled', false);
-                                // or, as has been pointed out elsewhere:
-                                // $('input:submit').removeAttr('disabled'); 
                             }
                         }
                     );
@@ -72,7 +81,8 @@
     </div>
     <div class="col-md-2 card">
         <button class="btn btn-info mt-4" style="height: 8em;" data-toggle="modal" data-target="#create">
-            <span class="ml-2"><i class="fa fa-plus mr-2" style="font-size: 2.2em;"></i> </span> <br> Create
+            <span class="ml-2"><i class="fa fa-plus mr-2" style="font-size: 2.2em;"></i> </span> 
+            <br> Create
         </button>
         <br>
         <button class="btn btn-info" style="height: 8em;" data-toggle="modal" data-target="#update">
@@ -84,6 +94,7 @@
             <span class="ml-2"><i class="fa fa-trash-o mr-2" style="font-size: 2.2em;" aria-hidden="true"></i> </span>
             <br> Delete
         </button>
+        <hr>
     </div>
 </div>
 

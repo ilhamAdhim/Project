@@ -3,7 +3,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class dpaLecturer extends CI_Controller {
+class DPALecturer extends CI_Controller {
 
     
     public function __construct()
@@ -11,6 +11,8 @@ class dpaLecturer extends CI_Controller {
         parent::__construct();
         $this->API = 'http://localhost/Project-dataDosen/api/admins/dpaLec_API';
         $this->load->library('Excel');
+        $this->load->helper('file');
+        
         $this->load->model('admin_model');
         
         //Do your magic here
@@ -19,7 +21,7 @@ class dpaLecturer extends CI_Controller {
     public function index()
     {
         if($this->session->userdata('loggedIn')){
-            //vu_dpa
+            //tb_lec_dpa
             $result = $this->curl->simple_get($this->API);
 
             $lcDPA['response'] = json_decode($result,true);
@@ -35,33 +37,142 @@ class dpaLecturer extends CI_Controller {
 
     public function createDPALecturer(){
         if($this->session->userdata('loggedIn')){
-            
+            if(isset($_POST['submit'])){
+                $data = [
+                    'code'       => $this->input->post('code'),
+                    'year'       => $this->input->post('year'),
+                    'cl_id_dpa'  => $this->input->post('cl_id_dpa'),
+                    'semester'   => $this->input->post('semester')
+                ];
+
+                $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+                redirect('adminController/dpaLecturer');
+            }
         }else{
             redirect(base_url());
         }
     }
 
-    
+
     public function updateDPALecturer(){
         if($this->session->userdata('loggedIn')){
-            
+            if(isset($_POST['submit'])){
+                $data = [
+                    'code'       => $this->input->post('code'),
+                    'year'       => $this->input->post('year'),
+                    'cl_id_dpa'  => $this->input->post('cl_id_dpa'),
+                    'semester'   => $this->input->post('semester')
+                ];
+                    
+                $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+                redirect('adminController/dpaLecturer');
+            }
         }else{
             redirect(base_url());
         }
-        
     }
 
     public function deleteDPALecturer(){
         if($this->session->userdata('loggedIn')){
-                
+            if(isset($_POST['submit'])){
+                $data = [
+                    'code' => $this->input->post('code')
+                ];
+            }
+            $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+            redirect('adminController/dpaLecturer');
         }else{
             redirect(base_url());
         }
         
     }
 
+    public function upload(){
+        $fileName = time().$_FILES['file']['name'];
+        $path = 'assets/uploads/'; //create folder assets in root 
+        $config['upload_path'] = $path;
+        $config['file_name'] = $fileName;
+        $config['allowed_types'] = 'xls|xlsx|csv'; //set file format
+        $config['max_size'] = 10000;
+         
+
+        $this->load->library('upload'); //load library upload 
+        $this->upload->initialize($config); //loaded library comes with configuration
+         
+        if(!$this->upload->do_upload('file') )
+            $this->upload->display_errors();
+             
+        $media = $this->upload->data('file');
+        $inputFileName = 'assets/uploads/'.$fileName;
+         
+        try {
+            // get the file and read the file name and type
+                $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+                $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                $objPHPExcel = $objReader->load($inputFileName);
+            } catch(Exception $e) {
+                die('Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
+            }
+ 
+            $sheet = $objPHPExcel->getSheet(0);
+            $highestRow = $sheet->getHighestRow();
+            $highestColumn = $sheet->getHighestColumn();
+             
+            for ($row = 2; $row <= $highestRow; $row++){                  //  Read a row of data into an array                 
+                $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                                NULL,
+                                                TRUE,
+                                                FALSE);
+                                                 
+                //Match with column names in database
+                 $data = array(
+                    'code'       =>  $rowData[0][0],
+                    'name'    =>  $rowData[0][1],
+                    'class_name'    =>  $rowData[0][2],
+                    'year'     =>  $rowData[0][3]
+                );
+                 
+                //Match with the model and which function to execute
+                $this->admin_model->createLecturerDPA($data);
+                // use to delete the file as soon as it updates the database
+                delete_files('C:/xampp/htdocs/Project-dataDosen/assets/uploads/csv'.$fileName.'csv');
+            }
+            redirect('adminController/dpaLecturer');
+    }
+
+    public function template(){
+        $object = new PHPExcel();
+        $object->setActiveSheetIndex(0);
+  
+        // On excel columns
+        $table_columns = array("code", "name" , "class_name", "year");
+        $column = 0;
+
+        // Fill excel column values
+        foreach($table_columns as $field){
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+          }
+        // Auto size the column width
+        foreach (range('A', $object->getActiveSheet()->getHighestDataColumn()) as $col) {
+            $object->getActiveSheet()
+                ->getColumnDimension($col)
+                ->setAutoSize(true);
+        } 
+
+        // Set the version
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+        ob_end_clean();
+  
+        // Set to excel content type
+        header('Content-Type: application/vnd.ms-excel');
+  
+        // Set the extension
+        header('Content-Disposition: attachment;filename="dpaLecturer.xlsx"');
+        $object_writer->save('php://output');
+    }
     
-    function export(){
+    public function export(){
         
         $object = new PHPExcel();
         $object->setActiveSheetIndex(0);
