@@ -1,55 +1,48 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Subjects extends CI_Controller {
+class SubjectsRPSSAP extends CI_Controller {
 
     
     public function __construct()
     {        
         parent::__construct();
-        $this->API = 'http://localhost/Project-dataDosen/api/admins/Subjects_API';
-        $this->load->model('admin_model');
+        $this->API = 'http://localhost/Project-dataDosen/api/admins/rps_sap_API';
         $this->load->library('Excel');
+        $this->load->helper('file');
+        $this->load->model('admin_model');
+        
         //Do your magic here
     }
     
     public function index()
     {
-        // tb_subject
         if($this->session->userdata('loggedIn')){
+            //tb_rpssap$rps_sap
             $result = $this->curl->simple_get($this->API);
-            $subjects = [
-                'response'  => json_decode($result,true),
-                'title'     => 'Subjects'
-            ];
 
-            $this->load->view('template/header_admin', $subjects);
-            $this->load->view('home/admins/content', $subjects);
-            $this->load->view('template/footer_admin', $subjects);
+            $rps_sap['response'] = json_decode($result,true);
+            $rps_sap['title'] = 'Subjects RPS SAP';
+
+            $this->load->view('template/header_admin', $rps_sap);
+            $this->load->view('home/admins/rps_sap', $rps_sap);
+            $this->load->view('template/footer_admin', $rps_sap);
         }else{
             redirect(base_url());
         }
     }
 
-
-    public function createSubjects(){
+    public function createSubjectsRPSSAP(){
         if($this->session->userdata('loggedIn')){
             if(isset($_POST['submit'])){
                 $data = [
-                    'subject_code'  => $this->input->post('subject_code'),
-                    'subject'       => $this->input->post('subject'),
-                    'credit_hour'   => $this->input->post('credit_hour'),
-                    'T/P'           => $this->input->post('T/P'),
-                    'semester'      => $this->input->post('semester'),
-                    'level'         => $this->input->post('level'),
-                    'major'         => $this->input->post('major'),
-                    'year'          => $this->input->post('year')
+                    'subject_code'       => $this->input->post('subject_code'),
+                    'RPS'       => $this->input->post('RPS'),
+                    'SAP'  => $this->input->post('SAP'),
                 ];
-                    
+
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                    
-                redirect('adminController/Subjects');
+                redirect('adminController/subjectsRPSSAP');
             }
         }else{
             redirect(base_url());
@@ -57,30 +50,24 @@ class Subjects extends CI_Controller {
     }
 
 
-    public function updateSubjects(){
+    public function updateSubjectsRPSSAP(){
         if($this->session->userdata('loggedIn')){
             if(isset($_POST['submit'])){
                 $data = [
-                    'subject_code'  => $this->input->post('subject_code'),
-                    'subject'       => $this->input->post('subject'),
-                    'credit_hour'   => $this->input->post('credit_hour'),
-                    'T/P'           => $this->input->post('T/P'),
-                    'semester'      => $this->input->post('semester'),
-                    'level'         => $this->input->post('level'),
-                    'major'         => $this->input->post('major'),
-                    'year'          => $this->input->post('year')
+                    'subject_code'       => $this->input->post('subject_code'),
+                    'RPS'       => $this->input->post('RPS'),
+                    'SAP'  => $this->input->post('SAP'),
                 ];
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                    
-                redirect('adminController/Subjects');
+                redirect('adminController/subjectsRPSSAP');
             }
         }else{
             redirect(base_url());
         }
     }
 
-    public function deleteSubjects(){
+    public function deleteSubjectsRPSSAP(){
         if($this->session->userdata('loggedIn')){
             if(isset($_POST['submit'])){
                 $data = [
@@ -88,17 +75,27 @@ class Subjects extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/Subjects');
+            redirect('adminController/subjectsRPSSAP');
         }else{
             redirect(base_url());
         }
+        
     }
-    
+
+    public function downloadFile(){
+        $this->load->helper('download');
+        $type = $this->input->post('type') === '1' ? 'RPS' : 'SAP';
+        $filename = $this->input->post('filename').'.docx';
+        // echo $type;
+        $data = file_get_contents(base_url('assets/uploads/'.$type.'/'.$filename));
+        force_download( $filename , $data)   ;
+        exit();
+    }
+
     public function upload(){
         $fileName = time().$_FILES['file']['name'];
-         
-        $config['upload_path'] = 'assets/uploads/csv/'; //create folder assets in root 
-        
+        $path = 'assets/uploads/'; //create folder assets in root 
+        $config['upload_path'] = $path;
         $config['file_name'] = $fileName;
         $config['allowed_types'] = 'xls|xlsx|csv'; //set file format
         $config['max_size'] = 10000;
@@ -107,12 +104,11 @@ class Subjects extends CI_Controller {
         $this->load->library('upload'); //load library upload 
         $this->upload->initialize($config); //loaded library comes with configuration
          
-        if(! $this->upload->do_upload('file') )
-        $this->upload->display_errors();
+        if(!$this->upload->do_upload('file') )
+            $this->upload->display_errors();
              
         $media = $this->upload->data('file');
-        $inputFileName = 'assets/uploads/csv/'.$fileName;
-        
+        $inputFileName = 'assets/uploads/'.$fileName;
          
         try {
             // get the file and read the file name and type
@@ -135,23 +131,17 @@ class Subjects extends CI_Controller {
                                                  
                 //Match with column names in database
                  $data = array(
-                    'subject_code'  => $rowData[0][0],
-                    'subject'       => $rowData[0][1],
-                    'credit_hour'   => $rowData[0][2],
-                    'TP'            => $rowData[0][3],
-                    'semester'      => $rowData[0][4],
-                    'level'         => $rowData[0][5],
-                    'major'         => $rowData[0][6],
-                    'year'          => $rowData[0][7]
+                    'subject_code'       =>  $rowData[0][0],
+                    'RPS'    =>  $rowData[0][1],
+                    'SAP'    =>  $rowData[0][2],
                 );
                  
                 //Match with the model and which function to execute
-                $insert = $this->admin_model->createSubject($data);
+                $this->admin_model->createSubjectsRPSSAP($data);
                 // use to delete the file as soon as it updates the database
-                delete_files('C:/xampp/htdocs/Project-dataDosen/assets/uploads/csv');      
-                
+                delete_files('C:/xampp/htdocs/Project-dataDosen/assets/uploads/csv');
             }
-            redirect('adminController/Subjects');
+            redirect('adminController/subjectsRPSSAP');
     }
 
     public function template(){
@@ -159,14 +149,14 @@ class Subjects extends CI_Controller {
         $object->setActiveSheetIndex(0);
   
         // On excel columns
-        $table_columns = array("subject_code", "subject", "credit_hour" ,"T/P" , "semester" , "level" ,"major","year");
+        $table_columns = array("subject_code", "RPS" , "SAP");
         $column = 0;
 
         // Fill excel column values
         foreach($table_columns as $field){
             $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
             $column++;
-        }
+          }
         // Auto size the column width
         foreach (range('A', $object->getActiveSheet()->getHighestDataColumn()) as $col) {
             $object->getActiveSheet()
@@ -182,41 +172,30 @@ class Subjects extends CI_Controller {
         header('Content-Type: application/vnd.ms-excel');
   
         // Set the extension
-        header('Content-Disposition: attachment;filename="Subjects.xlsx"');
+        header('Content-Disposition: attachment;filename="Subjects_RPS_SAP template.xlsx"');
         $object_writer->save('php://output');
     }
-
-
+    
     public function export(){
+        
         $object = new PHPExcel();
-
         $object->setActiveSheetIndex(0);
-  
-        // On excel columns
-        $table_columns = array("subject_code", "subject", "credit_hour" ,"T/P" , "semester" , "level" ,"major","year");
+
+        $table_columns = array("subject_code", "RPS" , "SAP");
         $column = 0;
-  
-        // Fill excel column values
         foreach($table_columns as $field){
-            $object->getActiveSheet()->setCellValueByColumnAndRow($column,1, $field);    
-            $column++;
+          $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+          $column++;
+  
         }
   
-        $data = $this->admin_model->getSubjects();
-        $excel_row =2;
-  
-        // Fill the values of row based on excel's column 
-        foreach($data as $key){
-          $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $key->subject_code);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $key->subject);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $key->credit_hour);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $key->TP);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $key->semester);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $key->level);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $key->major);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $key->year);
-        
-        
+        $rps_sap = $this->admin_model->getSubjectsRPSSAP();
+        $excel_row = 2;
+
+        foreach($rps_sap as $row){
+          $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->subject_code);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->RPS);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->SAP);
           $excel_row++;
         }
 
@@ -227,22 +206,16 @@ class Subjects extends CI_Controller {
                 ->setAutoSize(true);
         } 
   
-        // Set the version
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel2007');
+
         ob_end_clean();
-  
-        // Set to excel content type
         header('Content-Type: application/vnd.ms-excel');
-  
-        // Set the extension
-        header('Content-Disposition: attachment;filename="Subject List.xlsx"');
-  
+        header('Content-Disposition: attachment;filename="Subject_RPS_SAP.xlsx"');
+
         $object_writer->save('php://output');
   
-      }
+    }
+
 }
-
-/* End of file researchGroup.php */
-
 
 ?>

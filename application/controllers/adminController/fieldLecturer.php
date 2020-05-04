@@ -132,7 +132,7 @@ class fieldLecturer extends CI_Controller {
                 //Match with the model and which function to execute
                 $this->admin_model->createLecturerPosition($data);
                 // use to delete the file as soon as it updates the database
-                delete_files('C:/xampp/htdocs/Project-dataDosen/assets/uploads/csvcsv');      
+                delete_files('C:/xampp/htdocs/Project-dataDosen/assets/uploads/csv');      
                     
             }
             redirect('adminController/fieldLecturer');

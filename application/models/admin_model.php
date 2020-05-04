@@ -295,7 +295,42 @@ class admin_model extends CI_Model {
            $this->db->delete('tb_subjects');
         }
 //========================================================================================================================
+//========================================================================================================================
 
+    //RPS_SAP
+    
+    public function getSubjectsRPSSAP(){
+        $this->db->order_by('SAP');
+        return $this->db->get('tb_rps_sap')->result();
+    }
+
+    public function createSubjectsRPSSAP($data = null){
+        $this->db->insert('tb_rps_sap', $data);
+    }
+
+    public function updateSubjectsRPSSAP($data){
+        $this->db->where('subject_code', $data['subject_code']);
+        $this->db->update('tb_rps_sap', $data);
+    }
+
+    public function deleteSubjectsRPSSAP($subj_code){
+       $this->db->where('subject_code', $subj_code);
+       $this->db->delete('tb_rps_sap');
+    }
+
+    public function getFileName($filter){
+        if($filter == 'RPS'){
+            $this->db->select('RPS');
+            $this->db->from('tb_rps_sap');
+            $this->db->where('RPS', $filter);
+            $this->db->get()->result_array();
+        }else{
+            $this->db->select('SAP');
+            $this->db->from('tb_rps_sap');
+            $this->db->where('SAP', $filter);
+            $this->db->get()->result_array();
+        }
+    }
 }
 
 /* End of file admin.php */

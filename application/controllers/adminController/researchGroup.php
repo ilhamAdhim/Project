@@ -131,7 +131,7 @@ class researchGroup extends CI_Controller {
                 $this->admin_model->createResearchGroups($data);
                 
                 // use to delete the file as soon as it updates the database
-                delete_files('C:/xampp/htdocs/Project-dataDosen/assets/uploads/csvcsv');      
+                delete_files('C:/xampp/htdocs/Project-dataDosen/assets/uploads/csv');      
                 
             }
             redirect('adminController/researchGroup');

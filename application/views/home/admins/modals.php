@@ -37,3 +37,13 @@
         </div>
     </div>
 </div>
+
+<script>
+
+</script>
+
+<style>
+
+.modal-header {
+    cursor: move;
+}</style>
