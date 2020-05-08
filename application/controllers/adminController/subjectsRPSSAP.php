@@ -11,6 +11,7 @@ class SubjectsRPSSAP extends CI_Controller {
         $this->load->library('Excel');
         $this->load->helper('file');
         $this->load->model('admin_model');
+        $this->load->library('upload');
         
         //Do your magic here
     }
@@ -25,7 +26,7 @@ class SubjectsRPSSAP extends CI_Controller {
             $rps_sap['title'] = 'Subjects RPS SAP';
 
             $this->load->view('template/header_admin', $rps_sap);
-            $this->load->view('home/admins/rps_sap', $rps_sap);
+            $this->load->view('home/admins/content_rps_sap', $rps_sap);
             $this->load->view('template/footer_admin', $rps_sap);
         }else{
             redirect(base_url());
@@ -88,8 +89,34 @@ class SubjectsRPSSAP extends CI_Controller {
         $filename = $this->input->post('filename').'.docx';
         // echo $type;
         $data = file_get_contents(base_url('assets/uploads/'.$type.'/'.$filename));
-        force_download( $filename , $data)   ;
-        exit();
+        force_download($filename , $data);
+    }
+
+    public function uploadFile(){
+        $filename = $_FILES['userfile']['name'];
+        $type = substr($filename , 0 ,3) === 'RPS' ? 'RPS' : 'SAP';
+        $uploadPath =  './assets/uploads/'.$type.'/';
+        
+        $config = [
+            'upload_path'   => $uploadPath,
+            'overwrite'     => TRUE,
+            'allowed_types' => 'pdf|doc|docx'
+        ];
+
+        $this->upload->initialize($config);
+        if ( ! $this->upload->do_upload('userfile')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('template/header_admin');
+            $this->load->view('home/admins/error', $error);
+            $this->load->view('template/footer_admin');
+        }else{            
+            /* if(filenya ada){
+                $this->admin_model->createSubjectsRPSSAP();
+            }else{
+                $this->admin_model->updateSubjectsRPSSAP();
+            } */
+            redirect('adminController/subjectsRPSSAP');
+        }
     }
 
     public function upload(){

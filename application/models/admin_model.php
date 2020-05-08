@@ -304,6 +304,19 @@ class admin_model extends CI_Model {
         return $this->db->get('tb_rps_sap')->result();
     }
 
+    public function getOneSubjectsRPSSAP($name){
+        $details = explode('_',$name);
+
+        if($details[0] == "RPS"){
+            $this->db->where('RPS', $details[0]);
+        }else{
+            $this->db->where('SAP', $details[0]);
+        }
+        $this->db->where('subject_code', $details[1]);
+        
+        return $this->db->get('tb_rps_sap')->result();
+    }
+
     public function createSubjectsRPSSAP($data = null){
         $this->db->insert('tb_rps_sap', $data);
     }
@@ -331,6 +344,8 @@ class admin_model extends CI_Model {
             $this->db->get()->result_array();
         }
     }
+
+    
 }
 
 /* End of file admin.php */

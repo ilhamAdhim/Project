@@ -14,4 +14,14 @@
         <br> Delete
     </button>
     <hr>
+    <form action="<?=str_replace(' ','',$title)?>/uploadFile" method="post" enctype="multipart/form-data">
+        <input name="userfile" id="userfile" type="file" />
+        <input class="btn btn-info" type="submit" value="Upload docx file" disabled />
+    </form>
+
+    <hr>
+
+  <!--   <?php if($error){ ?>
+        <?=$error?>
+    <?php } ?> -->
 </div>

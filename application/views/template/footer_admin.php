@@ -7,6 +7,13 @@ $(document).ready(function(){
   $('#data-read').DataTable();
 });
 
+
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+$(document).tooltip({ boundary: 'window' })
+
 </script>
 
 
