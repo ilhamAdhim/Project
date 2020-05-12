@@ -40,16 +40,16 @@
               </div>
 
               <!-- JADWAL AJAR DOSEN -->
-              <hr>
+              <!-- <hr> -->
 
-              <h1 id="schedule">Time Schedule</h1>
-              <?php $this->load->view('home/lecturers/schedule'); ?>
+              <!-- <h1 id="schedule">Time Schedule</h1>
+              <?php $this->load->view('home/lecturers/schedule'); ?> -->
 
 
 
               <!-- PENGAJAR MATA KULIAH  -->
               <hr>
-              <h2 id="subjects"> PENGAJAR MATA KULIAH </h2>
+              <h2 id="subjects"> Pengajar Mata Kuliah </h2>
               <br>
 
               <?php $this->load->view('home/lecturers/subjects'); ?>
@@ -57,7 +57,7 @@
 
               <!-- RESEARCH GROUP -->
               <hr>
-              <h2 id="researchGroup"> RESEARCH GROUP </h2>
+              <h2 id="researchGroup"> Research Group </h2>
 
               <?php $this->load->view('home/lecturers/researchGroup');?>
 

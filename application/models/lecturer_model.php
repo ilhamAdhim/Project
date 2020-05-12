@@ -43,6 +43,11 @@ class lecturer_model extends CI_Model {
         return $this->db->get_where('tb_lecturerlist',['code' => $code])->result();
     }
 
+    public function getFiles($subject_code){
+        $this->db->select('RPS,SAP');
+        return $this->db->get_where('tb_rps_sap',['subject_code' => $subject_code])->result();
+    }
+
     public function updatePersonalInfo(){
             $data = [
                 'username'  =>$this->input->post('username'),
