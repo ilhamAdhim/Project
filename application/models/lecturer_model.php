@@ -26,12 +26,15 @@ class lecturer_model extends CI_Model {
     // take lecturer's group research and it's priority on the database
 
     public function lecResearchPriority($code){
+        $this->db->select('research,priority');
+        
         return $this->db->get_where('vu_research',['code' => $code])->result();   
     }
 
     // take what subjects that lecturer's teach to student
 
     public function lecSubject($code){
+        $this->db->select('subject');
         return $this->db->get_where('vu_class_schedule',['code' => $code])->result();
     }
 

@@ -1,10 +1,10 @@
 <div class="row mx-auto">
 
 <!-- SUBJECTS -->
-<?php if(!empty($response)){
-   foreach ($response['subject'] as $key => $value) { ?>
+<?php if(!empty($subject)){
+   foreach ($subject as $key => $value) { ?>
    <div class="col-sm-4">
-       <li> <?=$value['subject'] ?> </li>
+       <li> <?=$value->subject ?> </li>
    </div>
    <?php }
  } else{ ?>
