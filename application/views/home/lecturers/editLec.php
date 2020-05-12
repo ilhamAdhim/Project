@@ -1,4 +1,3 @@
-
 <div class="tab-pane fade" id="edit">
   <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -16,7 +15,7 @@
     <!-- Edit Personal Information -->
     <div class="tab-pane active" id="ed_profile">
       <form method="POST" action="lec_home/editData">
-      <div class="form-group row">
+        <div class="form-group row">
           <label class="col-lg-3 col-form-label form-control-label">Code</label>
           <div class="col-lg-9">
             <input class="form-control" required readonly name="code" type="text" value="<?=$info[0]->code?>">
@@ -37,13 +36,14 @@
         <div class="form-group row">
           <label class="col-lg-3 col-form-label form-control-label">Username</label>
           <div class="col-lg-9">
-            <input class="form-control" required name="username" type="text" value=<?=$username[0]->username?>>
+            <input class="form-control" required name="username" type="text" value=<?=$account[0]->username?>>
           </div>
-        </div>  
+        </div>
         <div class="form-group row">
           <label class="col-lg-3 col-form-label form-control-label">Email</label>
           <div class="col-lg-9">
-            <input class="form-control" name="email" type="email" placeholder="email@gmail.com">
+            <input class="form-control" name="email" type="email"
+              placeholder=" <?=$account[0]->email ? $account[0]->email : 'email@gmail.com' ?>  ">
           </div>
         </div>
 
@@ -84,13 +84,13 @@
 
     </div>
 
-  <!-- Edit Password -->
-  <div class="tab-pane fade" id="ed_password">
-    <form role="form" method="post" action="lec_home/changePassword">
-      <div class="form-group row">
+    <!-- Edit Password -->
+    <div class="tab-pane fade" id="ed_password">
+      <form role="form" method="post" action="lec_home/changePassword">
+        <div class="form-group row">
           <label class="col-lg-3 col-form-label form-control-label">Password</label>
           <div class="col-lg-9">
-            <input class="form-control" type="password" placeholder="Set new password...">
+            <input class="form-control" type="password" name="password" placeholder="Set new password...">
           </div>
         </div>
         <div class="form-group row">
@@ -103,7 +103,7 @@
         <div class="form-group row">
           <label class="col-lg-3 col-form-label form-control-label"></label>
           <div class="col-lg-9">
-            <input type="button" class="btn btn-primary" value="Save Changes">
+            <input type="submit" class="btn btn-primary" value="Save Changes">
             <input type="reset" class="btn btn-danger" value="Reset">
           </div>
         </div>
@@ -111,8 +111,9 @@
         <script>
           $(".alert").alert();
         </script>
+        
 
-      </div>
+    </div>
     </form>
   </div>
 

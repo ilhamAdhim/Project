@@ -7,8 +7,7 @@
     </div>
     <?php } 
             } else{ ?>
-
-    <div class="text align-self-center">
+    <div class="mx-auto">
         <strong> You are not included in any group research </strong>
     </div>
 

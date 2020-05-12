@@ -10,7 +10,8 @@ class lec_home extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('lecturer_model');
-        
+        $this->load->helper('file');
+        $this->load->library('upload');
     }
     
     public function index()
@@ -18,6 +19,7 @@ class lec_home extends CI_Controller {
         
         if($this->session->userdata('loggedIn')){
             $code = $this->session->userdata('code');
+            
             $data = array(
                 'title'  => 'Lecturer Home',
                 'code' => $code,
@@ -25,11 +27,11 @@ class lec_home extends CI_Controller {
                 'research' => $this->lecturer_model->lecResearchPriority($code),
                 'subject' => $this->lecturer_model->lecSubject($code),
                 'info'  => $this->lecturer_model->getPersonalInfo($code),
-                'username' => $this->lecturer_model->getUsername($code),
+                'account' => $this->lecturer_model->getAccount($code),
             );
 
+            $this->session->set_userdata($data);
 
-            // var_dump($data['response']);
             $this->load->view('template/header', $data);
             $this->load->view('home/lecturerHome', $data);
             $this->load->view('template/footer', $data);
@@ -49,18 +51,49 @@ class lec_home extends CI_Controller {
         ];
 
         $this->lecturer_model->updatePersonalInfo();
+        redirect('lec_home');
     }
 
     public function changePassword(){
         $data = [
             'code'      => $this->session->userdata('code'),
-            'username'  => $this->session->userdata('username'),
             'password'  => $this->input->post('password')
         ];
-        if($this->lecturer_model->changePassword($data)){
+        
+        $this->lecturer_model->changePassword($data);
+        redirect('lec_home');
+        
+    }
 
-        }else{
+    public function downloadFile(){
+        $this->load->helper('download');
+        $type = $this->input->post('type') === '1' ? 'RPS' : 'SAP';
+        $filename = $this->input->post('filename').'.docx';
+        // echo $type;
+        $data = file_get_contents(base_url('assets/uploads/'.$type.'/'.$filename));
+        force_download($filename , $data);
+    }
 
+    public function uploadFile(){
+        $filename = $_FILES['userfile']['name'];
+        $type = substr($filename , 0 ,3) === 'RPS' ? 'RPS' : 'SAP';
+        $uploadPath =  './assets/uploads/'.$type.'/';
+        
+        $config = [
+            'upload_path'   => $uploadPath,
+            'overwrite'     => TRUE,
+            'allowed_types' => 'pdf|doc|docx'
+        ];
+
+        $this->upload->initialize($config);
+        if ( ! $this->upload->do_upload('userfile')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('template/header_admin');
+            $this->load->view('home/admins/error', $error);
+            $this->load->view('template/footer_admin');
+        }else{            
+            
+            redirect('adminController/subjectsRPSSAP');
         }
     }
 }

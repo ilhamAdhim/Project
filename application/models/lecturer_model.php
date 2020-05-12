@@ -30,7 +30,7 @@ class lecturer_model extends CI_Model {
     // take what subjects that lecturer's teach to student
 
     public function lecSubject($code){
-        $this->db->select('subject,subject_code');
+        $this->db->select('subject,subject_code,class');
         return $this->db->get_where('vu_class_schedule',['code' => $code])->result();
     }
 
@@ -38,11 +38,10 @@ class lecturer_model extends CI_Model {
         return $this->db->get_where('vu_lecturer_personal',['code' => $code])->result();
     }
     
-    public function getUsername($code){
-        $this->db->select('username');
+    public function getAccount($code){
+        $this->db->select('username,email');
         return $this->db->get_where('tb_lecturerlist',['code' => $code])->result();
     }
-
 
     public function updatePersonalInfo(){
             $data = [
