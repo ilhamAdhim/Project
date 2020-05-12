@@ -15,14 +15,10 @@ class lecturer_model extends CI_Model {
     // take lecturer's position and it's year and semester on the database
     
     public function lecPositionYear($code){
+        $this->db->select('position,year');
+        
         return $this->db->get_where('vu_position_2019',['code' =>$code])->result();   
     }
-
-    public function getlecPosition($code){
-        $this->db->select('status');
-        return $this->db->get_where('tb_lec_status',['code' =>$code])->result();   
-    }
-
     // take lecturer's group research and it's priority on the database
 
     public function lecResearchPriority($code){
