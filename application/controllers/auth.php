@@ -54,7 +54,7 @@
 
                         $this->session->set_userdata( $loggedInUser );
                         
-                        redirect('admin_home');
+                        redirect('adminController/researchGroup');
                     }}
             }
             else{

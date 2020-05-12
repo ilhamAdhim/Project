@@ -26,7 +26,15 @@
                         <?php } ?>
                             <div class="invalid-feedback">Oops, you missed this one.</div>
                         </div>
-                    <?php } ?>
+                        <?php } ?>
+                        
+                        <?php if($title == 'Lecture Contract' && $purpose === 'delete'){ ?> 
+                            <div class="md-form">
+                                <label for="week">Week</label>
+                                <input type="text" class="form-control" id="week" name="week">
+                            </div>
+                        <?php } ?>
+                        
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

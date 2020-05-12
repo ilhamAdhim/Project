@@ -20,13 +20,6 @@
 
 
 </head>
-<!-- <style>
-		#content { 
-			opacity: 0; 
-			transition: opacity .5s; 
-		} 
-	</style> -->
-
 <body>
 
 	<div class="wrapper d-flex align-items-stretch">
@@ -41,9 +34,6 @@
 				<h1><a href="<?=base_url()?>admin_home" class="logo">JTI</a></h1>
 				<ul class="list-unstyled components mb-5">
 					<li class="active">
-						<a href="<?=base_url()?>admin_home"> <i class="fa fa-home" aria-hidden="true"></i> Home</a>
-					</li>
-					<li>
 						<a href="<?=base_url()?>adminController/researchGroup"> <i class="fa fa-cogs"
 								aria-hidden="true"></i> Research Groups</a>
 					</li>
@@ -51,9 +41,6 @@
 						<a href="<?=base_url()?>adminController/Classes"> <i class="fa fa-cubes" aria-hidden="true"></i>
 							</i> Classes</a>
 					</li>
-
-				
-
 					<li>
 						<a href="#SubjectSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> <span>
 							<i class="fa fa-book" aria-hidden="true"></i> </span> Subjects
@@ -70,7 +57,12 @@
 						</li>
 						<li>
 							<a href="<?=base_url()?>adminController/Subjects"> <i class="fa fa-book"
-									aria-hidden="true"></i> Subject Details</a>
+								aria-hidden="true"></i> Subject Details</a>
+						</li>
+						<li>
+							<a href="<?=base_url()?>adminController/lectureContract"> 
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							Lecture Contract</a>
 						</li>
 					</ul>
 
@@ -79,10 +71,6 @@
 						<a href="#lecSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 							<span> <i class="fa fa-users" aria-hidden="true"></i> </span> Lecturers</a>
 						<ul class="collapse list-unstyled" id="lecSubmenu">
-							<li>
-								<a href="<?=base_url()?>admin_home/">All Lecturers</a>
-							</li>
-
 							<li>
 								<a href="<?=base_url()?>adminController/StatusLecturer">Status</a>
 							</li>

@@ -346,6 +346,36 @@ class admin_model extends CI_Model {
     }
 
     
+//========================================================================================================================
+//========================================================================================================================
+
+// Lecture Contract
+
+ 
+public function getLectureContract(){
+    return $this->db->get('tb_lecture_contract')->result();
+}
+
+public function createLectureContract($data = null){
+    $this->db->insert('tb_lecture_contract', $data);
+}
+
+public function updateLectureContract($data){
+    $condition = [
+        'subject_code' => $data['subject_code'],
+        'week' => $data['week']
+    ];
+    $this->db->where($condition);
+    $this->db->update('tb_lecture_contract', $data);
+}
+
+public function deleteLectureContract($condition){
+    $this->db->where($condition);
+    $this->db->delete('tb_lecture_contract');
+}
+
+
+    
 }
 
 /* End of file admin.php */
