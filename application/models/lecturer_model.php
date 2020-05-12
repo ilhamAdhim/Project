@@ -34,7 +34,7 @@ class lecturer_model extends CI_Model {
     // take what subjects that lecturer's teach to student
 
     public function lecSubject($code){
-        $this->db->select('subject');
+        $this->db->select('subject,subject_code');
         return $this->db->get_where('vu_class_schedule',['code' => $code])->result();
     }
 

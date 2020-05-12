@@ -1,4 +1,3 @@
-
 <div class="container">
   <nav class="breadcrumb">
     <a class="breadcrumb-item" href="#">Dashboard</a>
@@ -30,69 +29,46 @@
               <div class="tab-content py-4">
                 <!-- INSIDE PROFILE TAB -->
                 <?php $this->load->view('home/lecturers/profileLec'); ?>
-                
+
                 <!-- INSIDE MESSAGES TAB -->
                 <?php $this->load->view('home/lecturers/messageLec');?>
 
                 <!-- INSIDE EDIT TAB -->
                 <?php $this->load->view('home/lecturers/editLec');?>
 
-          <!-- end of main container -->
+                <!-- end of main container -->
+              </div>
+
+              <!-- JADWAL AJAR DOSEN -->
+              <hr>
+
+              <h1 id="schedule">Time Schedule</h1>
+              <?php $this->load->view('home/lecturers/schedule'); ?>
+
+
+
+              <!-- PENGAJAR MATA KULIAH  -->
+              <hr>
+              <h2 id="subjects"> PENGAJAR MATA KULIAH </h2>
+              <br>
+
+              <?php $this->load->view('home/lecturers/subjects'); ?>
+
+
+              <!-- RESEARCH GROUP -->
+              <hr>
+              <h2 id="researchGroup"> RESEARCH GROUP </h2>
+
+              <?php $this->load->view('home/lecturers/researchGroup');?>
+
+              <hr>
+
+            </div>
+          </div>
         </div>
 
-      <!-- JADWAL AJAR DOSEN -->
-        <hr>
-        
-        <h1 id="schedule">Time Schedule</h1>
-        <?php $this->load->view('home/lecturers/schedule'); ?>
 
-
-
-      <!-- PENGAJAR MATA KULIAH  -->
-        <hr>
-         <h2 id="subjects">  PENGAJAR MATA KULIAH </h2>
-         <br>
-        
-         <?php $this->load->view('home/lecturers/subjects'); ?>
-
-
-      <!-- RESEARCH GROUP -->
-          <hr>
-          <h2  id="researchGroup"> RESEARCH GROUP </h2>
-          
-          <?php $this->load->view('home/lecturers/researchGroup');?>
-
-          <hr>
-        
       </div>
     </div>
   </div>
-
-
-</div>
-
-<div class="container">
-<div class="card-deck">
-  <div class="card">
-    <img class="card-img-top" src="holder.js/100x180/" alt="">
-    <div class="card-body">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text ">Text</p>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="holder.js/100x180/" alt="">
-    <div class="card-body">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Text</p>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="holder.js/100x180/" alt="">
-    <div class="card-body">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Text</p>
-    </div>
-  </div>
-</div>
 </div>
