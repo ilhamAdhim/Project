@@ -16,8 +16,13 @@ class lecturer_model extends CI_Model {
     
     public function lecPositionYear($code){
         return $this->db->get_where('vu_position_2019',['code' =>$code])->result();   
-
     }
+
+    public function getlecPosition($code){
+        $this->db->select('status');
+        return $this->db->get_where('tb_lec_status',['code' =>$code])->result();   
+    }
+
     // take lecturer's group research and it's priority on the database
 
     public function lecResearchPriority($code){
@@ -28,6 +33,34 @@ class lecturer_model extends CI_Model {
 
     public function lecSubject($code){
         return $this->db->get_where('vu_class_schedule',['code' => $code])->result();
+    }
+
+    public function getPersonalInfo($code){
+        return $this->db->get_where('vu_lecturer_personal',['code' => $code])->result();
+    }
+    
+    public function getUsername($code){
+        $this->db->select('username');
+        return $this->db->get_where('tb_lecturerlist',['code' => $code])->result();
+    }
+
+
+    public function updatePersonalInfo(){
+            $data = [
+                'username'  =>$this->input->post('username'),
+                'email'=>$this->input->post('email'),
+                'phone'=>$this->input->post('phone')
+            ];
+            
+            // Update the data based on the condition and new value given
+            $this->db->where('code',$this->input->post('code'));
+            $this->db->update('tb_lecturerlist', $data);   
+        
+    }
+
+    public function changePassword($data){
+        $this->db->where('code', $data['code']);
+        $this->db->update('tb_lecturerlist', $data);
     }
 }
 

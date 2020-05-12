@@ -1,8 +1,5 @@
 
-
 <div class="container">
-  <BR></BR>
-
   <nav class="breadcrumb">
     <a class="breadcrumb-item" href="#">Dashboard</a>
     <a class="breadcrumb-item" href="#"><?=$title?></a>
@@ -16,7 +13,7 @@
         <div class="container">
           <div class="row my-2">
             <div class="col-lg-8 order-lg-2">
-              <h5 class="mb-3"><?=$lecturer?> </h5>
+              <h5 class="mb-3"><?=$info[0]->name?> </h5>
               <hr>
               <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -75,31 +72,27 @@
 </div>
 
 <div class="container">
-
-      <div class="card-deck">
-        <div class="card">
-          <img class="card-img-top" src="holder.js/100x180/" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Title</h4>
-            <p class="card-text">Text</p>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="holder.js/100x180/" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Title</h4>
-            <p class="card-text">Text</p>
-          </div>
-        </div>
-        <div class="card" style="background:url('<?=base_url()?>assets/images/admin.jpg')">
-          <img class="card-img-top" src="holder.js/100x180/" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Title</h4>
-            <p class="card-text">Text</p>
-          </div>
-        </div>
-      </div>
-
-
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus asperiores, nam sapiente expedita distinctio eos sint libero optio repudiandae in dolorum. Nam ullam vitae odit illo? At eligendi dicta quo!
+<div class="card-deck">
+  <div class="card">
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+      <h4 class="card-title">Title</h4>
+      <p class="card-text ">Text</p>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+      <h4 class="card-title">Title</h4>
+      <p class="card-text">Text</p>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="holder.js/100x180/" alt="">
+    <div class="card-body">
+      <h4 class="card-title">Title</h4>
+      <p class="card-text">Text</p>
+    </div>
+  </div>
+</div>
 </div>

@@ -9,13 +9,13 @@
             <hr>
 
             <h6>Status</h6>
-            <?php if($status == 'PNS'){ ?>
+            <?php if($info[0]->status == 'PNS'){ ?>
             <div class="alert alert-success">
                 You are a <b> PNS </b>
             </div>
             <?php }else{ ?>
             <div class="alert alert-info">
-                You are a <b> <?=$status?> </b>
+                You are a <b> <?=$info[0]->status?> </b>
             </div>
             <?php } ?>
 
@@ -23,14 +23,14 @@
         <div class="col-md-6">
             <h6>NIP</h6>
             <p>
-                <?=$NIP ? $NIP : 'Not Set' ?>
+                <?=$info[0]->NIP ? $info[0]->NIP : 'Not Set' ?>
             </p>
 
             <hr>
 
             <h6>NIDN</h6>
             <p>
-                <?= $NIDN ? $NIDN : 'Not Set' ?>
+                <?= $info[0]->NIDN ? $info[0]->NIDN : 'Not Set' ?>
             </p>
             <!-- <h6>Recent badges</h6>
                       <a href="#" class="badge badge-dark badge-pill">html5</a> -->

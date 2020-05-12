@@ -10,12 +10,12 @@
             $this->db->where('username', $username);
             $this->db->where('password', $password);
             $this->db->limit(1); //Retrieved data is only 1
-
+            
             $query = $this->db->get();
             // Search for table lecturer first then table admin 
             if ($query -> num_rows() == 1) { //Jika data ditemukan
                 $this->db->select('*');
-                $this->db->from('vu_lecturer_users');
+                $this->db->from('tb_lecturerlist');
                 $this->db->where('username', $username);
                 
                 $this->db->limit(1); //Retrieved data is only 1

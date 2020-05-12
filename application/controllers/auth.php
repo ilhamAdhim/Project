@@ -22,8 +22,6 @@
         public function proses_login(){
             $username = htmlspecialchars($this->input->post('uname1'));
             $password= htmlspecialchars($this->input->post('pwd1'));
-            
-
             $ceklogin = $this->login_model->login($username,$password);
             $user = $ceklogin;
             if($ceklogin){
@@ -37,14 +35,7 @@
                     // var_dump($row);
                     $loggedInUser = array(
                         'loggedIn'    => true,
-                        'user'      => $row->name,
                         'code'      => $row->code,
-                        'status'    => $row->status,
-                        'phone_num' => $row->phone_num,
-                        'NIDN'      => $row->NIDN,
-                        'NIP'       => $row->NIP,
-                        'username'  => $username,
-                        'identity'  => $identity 
                     );
                     
                     $this->session->set_userdata( $loggedInUser );
