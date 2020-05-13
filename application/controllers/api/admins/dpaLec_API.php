@@ -27,9 +27,9 @@ class dpaLec_API extends REST_Controller {
     function index_post() {
         $data = [
             'code'       => $this->post('code'),
-            'year'       => $this->post('year'),
-            'cl_id_dpa'  => $this->post('cl_id_dpa'),
-            'semester'   => $this->post('semester')
+            'name'       => $this->post('name'),
+            'class_name'  => $this->post('class_name'),
+            'year'   => $this->post('year')
         ];
         
         if($this->admin_model->createLecturerDPA($data) > 0){
@@ -47,12 +47,13 @@ class dpaLec_API extends REST_Controller {
 
      public function index_put(){
 
-         $data = [
+        $data = [
             'code'       => $this->put('code'),
-            'year'       => $this->put('year'),
-            'cl_id_dpa'  => $this->put('cl_id_dpa'),
-            'semester'   => $this->put('semester')
+            'name'       => $this->put('name'),
+            'class_name'  => $this->put('class_name'),
+            'year'   => $this->put('year')
         ];
+        
 
          if($this->admin_model->updateLecturerDPA($data) > 0){
              $this->response([

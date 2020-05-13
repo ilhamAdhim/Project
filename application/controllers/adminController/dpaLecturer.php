@@ -40,10 +40,11 @@ class DPALecturer extends CI_Controller {
             if(isset($_POST['submit'])){
                 $data = [
                     'code'       => $this->input->post('code'),
-                    'year'       => $this->input->post('year'),
-                    'cl_id_dpa'  => $this->input->post('cl_id_dpa'),
-                    'semester'   => $this->input->post('semester')
+                    'name'       => $this->input->post('name'),
+                    'class_name'  => $this->input->post('class_name'),
+                    'year'   => $this->input->post('year')
                 ];
+                
 
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                 redirect('adminController/dpaLecturer');
@@ -59,11 +60,11 @@ class DPALecturer extends CI_Controller {
             if(isset($_POST['submit'])){
                 $data = [
                     'code'       => $this->input->post('code'),
-                    'year'       => $this->input->post('year'),
-                    'cl_id_dpa'  => $this->input->post('cl_id_dpa'),
-                    'semester'   => $this->input->post('semester')
+                    'name'       => $this->input->post('name'),
+                    'class_name'  => $this->input->post('class_name'),
+                    'year'   => $this->input->post('year')
                 ];
-                    
+                
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                 redirect('adminController/dpaLecturer');
             }

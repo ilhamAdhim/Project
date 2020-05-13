@@ -42,7 +42,6 @@ class statusLecturer extends CI_Controller {
                     'code' => $this->input->post('code'),
                     'name'  =>$this->input->post('name'),
                     'status'=>$this->input->post('status'),
-                    'phone_num' =>$this->input->post('phone_num')
                 ];
                     
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
@@ -62,7 +61,6 @@ class statusLecturer extends CI_Controller {
                     'code' => $this->input->post('code'),
                     'name'  =>$this->input->post('name'),
                     'status'=>$this->input->post('status'),
-                    'phone_num' =>$this->input->post('phone_num')
                 ];
 
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));

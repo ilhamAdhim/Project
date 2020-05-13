@@ -190,7 +190,7 @@ class admin_model extends CI_Model {
 
             public function deleteLecturerDPA($code){
                 $this->db->where('code', $code);
-                $this->db->update('tb_lec_dpa');
+                $this->db->delete('tb_lec_dpa');
             }
 
             public function createLecturerDPA($data = null){

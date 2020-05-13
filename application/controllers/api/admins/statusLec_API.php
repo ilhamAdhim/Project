@@ -57,7 +57,6 @@ class statusLec_API extends REST_Controller {
             'code' => $this->post('code'),
             'name'  =>$this->post('name'),
             'status'=>$this->post('status'),
-            'phone_num' =>$this->post('phone_num'),
         ];
 
         if($this->admin_model->createLecturerStatus($data)){
@@ -80,7 +79,6 @@ class statusLec_API extends REST_Controller {
             'code' => $this->put('code'),
             'name'  =>$this->put('name'),
             'status'=>$this->put('status'),
-            'phone_num' =>$this->put('phone_num'),
         ];
 
 
