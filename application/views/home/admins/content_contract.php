@@ -1,4 +1,4 @@
-<!-- $data is acquired from each controller -->
+<!-- <div class="container"> -->
 <div class="row mt-3">
     <div class="col-md-9 mr-1 card p-4">
         <h3>Data <?=$title?></h3>
@@ -9,19 +9,36 @@
                     <tr>
                         <!-- Column Name -->
                         <?php foreach ($response['data'][0] as $key => $value) { ?>
-                        <th> <?=$key?> </th>
-                        <!-- <th> <?=$key?> </th> -->
+                        <th> <?=$key?></th>
                         <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no=1;
+                    <?php $col = -1;
                         foreach ($response['data'] as $cl) { ?>
                     <tr>
                         <?php foreach($cl as $key){ ?>
-                        <td> <?=$key?> </td>
+                            <?php $col++;?>
+                            <form action="lectureContract/downloadFile" method="post">
+                                <td> 
+
+                                <?php if($col == 1) { ?>
+                                    <input type="hidden" name="type" value="<?=$col?>">
+                                    <input type="hidden" name="filename" value="<?=$key?>">
+                                    
+                                        <input type="submit" class="normal" value="<?=$key?>">
+                                    
+                                <?php } else{ ?>
+                                    <?=$key?>
+                                <?php } ?>
+                                </td>
+                            </form>
+                        
                         <?php } ?>
+
+                        <?php $col = -1;?>
                     </tr>
+
                     <?php } ?>
                 </tbody>
             </table>
@@ -31,12 +48,17 @@
         <hr>
 
         <!-- Load view content_bottom for buttons export and import -->
+
         <?php $this->load->view('home/admins/content_bottom', $title); ?>
+    </div>
     
-    </div>  
-        <!-- Load view content_aside for buttons CRUD    -->
-        <?php $this->load->view('home/admins/content_aside'); ?>
-</div>  
+
+    <!-- Load view content_aside for buttons CRUD    -->
+    <?php $this->load->view('home/admins/content_aside'); ?>
+</div>
+
+<!-- </div> -->
+
 
 <!-- Target is used to access the modal, title as indicator, and val is the data given based on each controller -->
 
@@ -49,3 +71,19 @@
       $this->load->view('home/admins/modals', ['title' => $title, 'val' => $response['data'] , 'purpose' => 'delete']);
       
 ?>
+<style>
+
+.normal{
+    font-family:inherit;
+    background-color:inherit;
+    border:0;
+    padding:0
+}
+
+
+input[type='submit']:hover{
+    
+}
+
+
+</style>

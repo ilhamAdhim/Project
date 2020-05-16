@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -21,42 +20,53 @@
   <body>
 
     <style>
-
         body,html{
-        scroll-behavior:smooth;  
+            scroll-behavior:smooth;  
         }
-
     </style>
-        <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#244282;">
+      <!--   <nav class="navbar navbar-expand-md navbar-dark">
+            
+            
+            <div class="collapse navbar-collapse" >
+                
+               
+
+
+                <ul class="navbar-nav ml-auto">
+                    
+
+                </ul>
+            </div>
+        </nav>
+     -->
+
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#244282;">
         <a class="navbar-brand" href="#">
             <img src="<?=base_url()?>assets/images/logo JTI.png" height=100px alt="">
         </a>
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-            aria-expanded="false" aria-label="Toggle navigation"></button>
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            aria-expanded="false" aria-label="Toggle navigation">
+        </button>
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Personal Information <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#subjects"> Subjects List </a>
+            </>
             
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0 smooth-scroll">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Personal Information <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#schedule">Time Schedule</a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#subjects"> Subjects List </a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#researchGroup"> Research Group </a>
-                    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#researchGroup"> Research Group </a>
+            </li>
+        </ul>
+    </div>
 
-
-                <li class="nav-item">
-                    <a href=" <?=base_url(); ?>auth/logout " class="nav-item nav-link "> Logout </a>
-                </li>
-
-                </ul>
-
-        </div>
-    </nav>
+    <div class="navbar-collapse collapse order-3 dual-collapse2" style="margin-right:5em">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href=" <?=base_url(); ?>auth/logout " class="nav-item nav-link "> Logout </a>
+            </li>
+        </ul>
+    </div>
+</nav>

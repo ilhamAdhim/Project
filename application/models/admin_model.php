@@ -338,11 +338,11 @@ class admin_model extends CI_Model {
 
  
 public function getLectureContract(){
-    return $this->db->get('tb_lecture_contract')->result();
+    return $this->db->get('tb_contract_files')->result();
 }
 
 public function createLectureContract($data = null){
-    $this->db->insert('tb_lecture_contract', $data);
+    $this->db->insert('tb_contract_files', $data);
 }
 
 public function updateLectureContract($data){
@@ -351,12 +351,12 @@ public function updateLectureContract($data){
         'week' => $data['week']
     ];
     $this->db->where($condition);
-    $this->db->update('tb_lecture_contract', $data);
+    $this->db->update('tb_contract_files', $data);
 }
 
 public function deleteLectureContract($condition){
     $this->db->where($condition);
-    $this->db->delete('tb_lecture_contract');
+    $this->db->delete('tb_contract_files');
 }
 
 

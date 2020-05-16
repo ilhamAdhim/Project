@@ -65,8 +65,36 @@ class lecturer_model extends CI_Model {
         $this->db->where('code', $data['code']);
         $this->db->update('tb_lecturerlist', $data);
     }
-}
 
+    public function downloadContract(){
+        $this->load->helper('download');
+        $filename = $this->input->post('filename').'.docx';
+        $data = file_get_contents(base_url('assets/uploads/kontrakPerkuliahan/'.$filename));
+        force_download($filename , $data);
+    }
+
+    public function uploadContract(){
+        $filename = $_FILES['userfile']['name'];
+        $uploadPath =  './assets/uploads/kontrakPerkuliahan/';
+        
+        $config = [
+            'upload_path'   => $uploadPath,
+            'overwrite'     => TRUE,
+            'allowed_types' => 'pdf|doc|docx'
+        ];
+
+        // slice the filename into 3 parts
+        $details = explode('_',$filename);
+
+        $data = [
+            'subject_code'  => $details[1],
+            'contractName'  => $fileName,
+            'uploaded_by'   => $this->session->userdata('code')
+        ];
+
+    }
+}
+    
 /* End of file lecturer_model.php */
 
 

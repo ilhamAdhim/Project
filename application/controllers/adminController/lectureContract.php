@@ -22,7 +22,7 @@ class lectureContract extends CI_Controller {
             $lcContract['title'] = 'Lecture Contract';
 
             $this->load->view('template/header_admin', $lcContract);
-            $this->load->view('home/admins/content', $lcContract);
+            $this->load->view('home/admins/content_contract', $lcContract);
             $this->load->view('template/footer_admin', $lcContract);
         }else{
             redirect(base_url());
@@ -55,10 +55,8 @@ class lectureContract extends CI_Controller {
             if(isset($_POST['submit'])){
                 $data = [
                     'subject_code' => $this->input->post('subject_code'),
-                    'week' => $this->input->post('week'),
-                    'date' =>  $this->input->post('date'),
-                    'topics' => $this->input->post('topics'),
-                    'method' => $this->input->post('method'),
+                    'contract_file' => $this->input->post('contract_file'),
+                    'uploaded_by' =>  $this->input->post('uploaded_by')
                 ];
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
@@ -75,7 +73,6 @@ class lectureContract extends CI_Controller {
             if(isset($_POST['submit'])){
                 $data = [
                     'subject_code' => $this->input->post('subject_code'),
-                    'week'  => $this->input->post('week')
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
@@ -126,10 +123,8 @@ class lectureContract extends CI_Controller {
                 //Match with column names in database
                 $data = [
                     'subject_code' =>  $rowData[0][0],
-                    'week' => $rowData[0][1],
-                    'date' =>  $rowData[0][2],
-                    'topics' =>$rowData[0][3],
-                    'method' =>$rowData[0][4]
+                    'contract_file' => $rowData[0][1],
+                    'uploaded_by' =>  $rowData[0][2],
                 ];
                  
                 //Match with the model and which function to execute
@@ -182,7 +177,7 @@ class lectureContract extends CI_Controller {
         $object->setActiveSheetIndex(0);
 
         // On excel columns
-        $table_columns = array("subject_code", "week" , "date" , "topics","method");
+        $table_columns = array("subject_code", "contract_file" , "uploaded_by");
         $column = 0;
         // Fill excel column values
         foreach($table_columns as $field){
@@ -196,10 +191,8 @@ class lectureContract extends CI_Controller {
         // Fill the values of row based on excel's column 
         foreach($lectureContract as $row){
           $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->subject_code);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->week);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->date);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->topics);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->method);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->contract_file);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->uploaded_by);
           $excel_row++;
         }
 
@@ -224,6 +217,32 @@ class lectureContract extends CI_Controller {
   
     }
 
+    public function downloadFile(){
+        $this->load->helper('download');
+        $filename = $this->input->post('filename').'.docx';
+        $data = file_get_contents(base_url('assets/uploads/kontrakPerkuliahan/'.$filename));
+        force_download($filename , $data);
+    }
+
+    public function uploadFile(){
+        $filename = $_FILES['userfile']['name'];
+        $uploadPath =  './assets/uploads/kontrakPerkuliahan/';
+        
+        $config = [
+            'upload_path'   => $uploadPath,
+            'overwrite'     => TRUE,
+            'allowed_types' => 'pdf|doc|docx'
+        ];
+
+        // slice the filename into 3 parts
+        $details = explode('_',$filename);
+
+        $data = [
+            'subject_code'  => $details[1],
+            'contractName'  => $fileName
+        ];
+
+    }
 }
 
 /* End of file lectureContract.php */

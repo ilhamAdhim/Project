@@ -43,12 +43,3 @@
             );
         });
 </script>
-
-
-</div>
-        <!-- Load view content_aside for buttons CRUD    -->
-
-<?php $this->load->view('home/admins/content_aside'); ?>
-
-
-</div>

@@ -120,12 +120,5 @@
 </div>
 </div>
 </div>
-<div class="col-lg-4 order-lg-1 mt-4 text-center">
-  <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-  <h6 class="mt-4">Upload a different photo</h6>
-  <label class="custom-file">
-    <input type="file" id="file" class="custom-file-input">
-    <span class="custom-file-control btn btn-info">Choose file</span>
-  </label>
-</div>
+
 </div>

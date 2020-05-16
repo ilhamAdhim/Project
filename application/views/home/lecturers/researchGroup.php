@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mx-auto container">
     <!-- GROUP RESEARCH -->
     <?php if(!empty($research)){
         foreach ($research as $gr => $value) { ?>

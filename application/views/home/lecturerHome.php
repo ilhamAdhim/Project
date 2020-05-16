@@ -11,9 +11,19 @@
       <div class="container card-text">
         <div class="container">
           <div class="row my-2">
+           <!-- Profile Picture -->
+            <div class="col-lg-4 order-lg-1 mt-4 text-center mb-4">
+              <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+              <h6 class="mt-4">Upload a different photo</h6>
+              <label class="custom-file">
+                <input type="file" id="file" class="custom-file-input">
+                <span class="custom-file-control btn btn-info">Choose file</span>
+              </label>
+            </div>
             <div class="col-lg-8 order-lg-2">
               <h5 class="mb-3"><?=$info[0]->name?> </h5>
               <hr>
+             
               <ul class="nav nav-tabs">
                 <li class="nav-item">
                   <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
@@ -39,14 +49,6 @@
                 <!-- end of main container -->
               </div>
 
-              <!-- JADWAL AJAR DOSEN -->
-              <!-- <hr> -->
-
-              <!-- <h1 id="schedule">Time Schedule</h1>
-              <?php $this->load->view('home/lecturers/schedule'); ?> -->
-
-
-
               <!-- PENGAJAR MATA KULIAH  -->
               <hr>
               <h2 id="subjects"> Pengajar Mata Kuliah </h2>
@@ -58,7 +60,6 @@
               <!-- RESEARCH GROUP -->
               <hr>
               <h2 id="researchGroup"> Research Group </h2>
-
               <?php $this->load->view('home/lecturers/researchGroup');?>
 
               <hr>
