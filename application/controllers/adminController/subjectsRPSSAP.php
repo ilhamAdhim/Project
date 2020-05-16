@@ -19,7 +19,7 @@ class SubjectsRPSSAP extends CI_Controller {
     public function index()
     {
         if($this->session->userdata('loggedIn')){
-            //tb_rpssap$rps_sap
+            //tb_rps_sap
             $result = $this->curl->simple_get($this->API);
 
             $rps_sap['response'] = json_decode($result,true);
@@ -56,8 +56,8 @@ class SubjectsRPSSAP extends CI_Controller {
             if(isset($_POST['submit'])){
                 $data = [
                     'subject_code'       => $this->input->post('subject_code'),
-                    'RPS'       => $this->input->post('RPS'),
-                    'SAP'  => $this->input->post('SAP'),
+                    'RPS'       => $this->input->post('rps'),
+                    'SAP'  => $this->input->post('sap'),
                 ];
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
@@ -103,6 +103,16 @@ class SubjectsRPSSAP extends CI_Controller {
             'allowed_types' => 'pdf|doc|docx'
         ];
 
+        // slice the filename into 3 parts
+        $details = explode('_',$filename);
+
+        $data = [
+            'subject_code'       => $details[1],
+            'RPS'       => $details[0] == 'RPS' ? $filename : " ",
+            'SAP'  => $details[0] == 'SAP' ? $filename : " "
+        ];
+
+
         $this->upload->initialize($config);
         if ( ! $this->upload->do_upload('userfile')){
             $error = array('error' => $this->upload->display_errors());
@@ -110,11 +120,11 @@ class SubjectsRPSSAP extends CI_Controller {
             $this->load->view('home/admins/error', $error);
             $this->load->view('template/footer_admin');
         }else{            
-            /* if(filenya ada){
-                $this->admin_model->createSubjectsRPSSAP();
+            if($this->admin_model->getOneSubjectsRPSSAP($filename) > 0){
+                $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
             }else{
-                $this->admin_model->updateSubjectsRPSSAP();
-            } */
+                $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+            }
             redirect('adminController/subjectsRPSSAP');
         }
     }

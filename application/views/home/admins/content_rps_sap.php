@@ -55,6 +55,18 @@
 
 <!-- </div> -->
 
+
+<!-- Target is used to access the modal, title as indicator, and val is the data given based on each controller -->
+
+<?php
+      
+      $this->load->view('home/admins/modals', ['title' => $title, 'val' => $response['data'] , 'purpose' => 'create']);
+      
+      $this->load->view('home/admins/modals', ['title' => $title, 'val' => $response['data'] , 'purpose' => 'update']);
+      
+      $this->load->view('home/admins/modals', ['title' => $title, 'val' => $response['data'] , 'purpose' => 'delete']);
+      
+?>
 <style>
 
 .normal{
