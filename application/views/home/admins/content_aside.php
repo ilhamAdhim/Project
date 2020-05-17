@@ -15,7 +15,7 @@
     </button>
     <hr>
 
-    <?php if($title == 'Subjects RPS SAP'){ ?>
+    <?php if($title == 'Subjects RPS SAP' || $title == 'Lecture Contract'){ ?>
         <form action="<?=str_replace(' ','',$title)?>/uploadFile" method="post" enctype="multipart/form-data">
             <input name="userfile" id="userfile" type="file" />
             <input class="btn btn-info" type="submit" value="Upload docx file" disabled />

@@ -35,10 +35,8 @@ class lectureContract extends CI_Controller {
             if(isset($_POST['submit'])){
                 $data = [
                     'subject_code' => $this->input->post('subject_code'),
-                    'week' => $this->input->post('week'),
-                    'date' =>  $this->input->post('date'),
-                    'topics' => $this->input->post('topics'),
-                    'method' => $this->input->post('method'),
+                    'contract_file' => $this->input->post('contract_file'),
+                    'uploaded_by' =>  $this->input->post('uploaded_by')
                 ];
 
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
@@ -239,7 +237,8 @@ class lectureContract extends CI_Controller {
 
         $data = [
             'subject_code'  => $details[1],
-            'contractName'  => $fileName
+            'contract_file'  => $fileName,
+            'uploaded_by'   => $this->session->userdata('code')            
         ];
 
     }

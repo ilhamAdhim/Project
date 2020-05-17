@@ -28,22 +28,20 @@ class lectureContract_API extends REST_Controller {
     
     public function index_delete(){
         $subject_code = $this->delete('subject_code');
-        $week = $this->delete('week');
 
-        if($subject_code === null || $week === null){
+        if($subject_code === null){
             $this->response([
                 'status'    => false,
-                'message'     => 'Provide a subject_code and week !'
+                'message'     => 'Provide a subject_code !'
             ], REST_Controller::HTTP_BAD_REQUEST);
         }else{
             $condition = [
-                'subject_code' => $subject_code,
-                'week' => $week
+                'subject_code' => $subject_code,    
             ];
             if ($this->admin_model->deleteLectureContract($condition) > 0) {
                 $this->response([
                     'status'    => true,
-                    'message'   => 'Contract on ' . $subject_code . ' on week ' .$week .  'deleted'
+                    'message'   => 'Contract of ' . $subject_code .'deleted'
                 ],REST_Controller::HTTP_OK);
                 # code...
             }else{
@@ -60,10 +58,8 @@ class lectureContract_API extends REST_Controller {
 
         $data = [
             'subject_code' => $this->post('subject_code'),
-            'week' => $this->post('week'),
-            'date' =>  $this->post('date'),
-            'topics' => $this->post('topics'),
-            'method' => $this->post('method'),
+            'contract_file' => $this->post('contract_file'),
+            'uploaded_by' =>  $this->post('uploaded_by')
         ];
 
         if($this->admin_model->createLectureContract($data)){
@@ -81,12 +77,11 @@ class lectureContract_API extends REST_Controller {
     }
 
      public function index_put(){
+        
         $data = [
             'subject_code' => $this->put('subject_code'),
-            'week' => $this->put('week'),
-            'date' =>  $this->put('date'),
-            'topics' => $this->put('topics'),
-            'method' => $this->put('method'),
+            'contract_file' => $this->put('contract_file'),
+            'uploaded_by' =>  $this->put('uploaded_by')
         ];
         if($this->admin_model->updateLectureContract($data) > 0){
             $this->response([

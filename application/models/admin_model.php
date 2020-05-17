@@ -346,11 +346,7 @@ public function createLectureContract($data = null){
 }
 
 public function updateLectureContract($data){
-    $condition = [
-        'subject_code' => $data['subject_code'],
-        'week' => $data['week']
-    ];
-    $this->db->where($condition);
+    $this->db->where('subject_code',$data['subject_code']);
     $this->db->update('tb_contract_files', $data);
 }
 

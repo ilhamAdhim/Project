@@ -85,9 +85,11 @@ class SubjectsRPSSAP extends CI_Controller {
 
     public function downloadFile(){
         $this->load->helper('download');
+
         $type = $this->input->post('type') === '1' ? 'RPS' : 'SAP';
+
         $filename = $this->input->post('filename').'.docx';
-        // echo $type;
+
         $data = file_get_contents(base_url('assets/uploads/'.$type.'/'.$filename));
         force_download($filename , $data);
     }

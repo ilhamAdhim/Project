@@ -49,9 +49,9 @@
                 <!-- end of main container -->
               </div>
 
-              <!-- PENGAJAR MATA KULIAH  -->
+              <!-- Kontrak Perkuliahan  -->
               <hr>
-              <h2 id="subjects"> Pengajar Mata Kuliah </h2>
+              <h2 id="subjects"> Kontrak Perkuliahan </h2>
               <br>
 
               <?php $this->load->view('home/lecturers/subjects'); ?>
