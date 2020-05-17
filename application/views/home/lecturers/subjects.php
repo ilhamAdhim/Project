@@ -7,24 +7,35 @@
       <div class="card-deck">  
         <?php foreach ($subject as $key => $value) { ?>
           <div class="card">
-            <img class="card-img-top" src="<?=base_url()?>assets/images/docx.png" height=300 alt="">
+            <div class="text-center">
+              <img class="card-img-top" src="<?=base_url()?>assets/images/docx.png" style="height:150px;width:150px;"alt="">
+            </div>
             <div class="card-body">
-              <h5 class="card-text pull-left" style="font-size:1.2em"><center><?=$value->subject ?></center></h5>
-              <p class="card-text pull-right"> <?=$value->class?> </p>
+              <hr>
+                <h5 class="card-text pull-left" style="font-size:1.2em"><center><?=$value->subject ?></center></h5>
+                <br>
+                <p class="card-text pull-right"> <?=$value->class?> </p>
             </div>
+
             <div class="card-footer">
-            <form action="lec_home/uploadContract" method="POST">
-              <input type="hidden" name="filename" value="<?=$value->class?>">
-              <input class="btn btn-info" type="submit" value="Upload">
-            </form>
-            <form action="lec_home/downloadContract" method="POST">
-              <input type="hidden" name="filename" value="<?=$value->class?>">
-              <input class="btn btn-secondary" type="submit" value="Download">
-            </form>
+              <div class="row">
+                <div class="col-sm-5 text-center ">
+                  <form action="lec_home/uploadContract" method="POST">
+                    <input type="hidden" name="filename" value="<?=$value->class?>">
+                    <input class="btn btn-info" type="submit" value="Upload">
+                  </form>
+                </div>
+                <div class="col-sm-5 text-center">
+                  <form action="lec_home/downloadContract" method="POST">
+                    <input type="hidden" name="filename" value="<?=$value->class?>">
+                    <input class="btn btn-secondary" type="submit" value="Download">
+                  </form>
+                </div>
+              </div>
             </div>
+            
           </div>
         <?php } ?>
-      </>
     </div>
   <!-- If the lecturer teach only one subject -->
   <?php } elseif(!empty($subject) && count($subject) == 1){ ?>

@@ -241,7 +241,23 @@ class lectureContract extends CI_Controller {
             'uploaded_by'   => $this->session->userdata('code')            
         ];
 
+        $this->upload->initialize($config);
+        if ( ! $this->upload->do_upload('userfile')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('template/header_admin');
+            $this->load->view('home/admins/error', $error);
+            $this->load->view('template/footer_admin');
+        }else{            
+            if(empty($this->admin_model->getOneSubjectsRPSSAP($filename))){
+                $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+            }else{
+                $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+            }
+            redirect('adminController/subjectsRPSSAP');
+        }
+
     }
+
 }
 
 /* End of file lectureContract.php */

@@ -107,11 +107,11 @@ class SubjectsRPSSAP extends CI_Controller {
 
         // slice the filename into 3 parts
         $details = explode('_',$filename);
-
+        $file = explode('.',$filename);
         $data = [
             'subject_code'       => $details[1],
-            'RPS'       => $details[0] == 'RPS' ? $filename : " ",
-            'SAP'  => $details[0] == 'SAP' ? $filename : " "
+            'RPS'       => $details[0] == 'RPS' ? $file[0] : " ",
+            'SAP'  => $details[0] == 'SAP' ? $file[0] : " "
         ];
 
 
@@ -122,7 +122,7 @@ class SubjectsRPSSAP extends CI_Controller {
             $this->load->view('home/admins/error', $error);
             $this->load->view('template/footer_admin');
         }else{            
-            if($this->admin_model->getOneSubjectsRPSSAP($filename) > 0){
+            if(empty($this->admin_model->getOneSubjectsRPSSAP($file))){
                 $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
             }else{
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));

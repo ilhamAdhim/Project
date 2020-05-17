@@ -305,14 +305,12 @@ class admin_model extends CI_Model {
     }
 
     public function getOneSubjectsRPSSAP($name){
-        $details = explode('_',$name);
-
-        if($details[0] == "RPS"){
-            $this->db->where('RPS', $details[0]);
+        if($name[0] == "RPS"){
+            $this->db->where('RPS', $name[0]);
         }else{
-            $this->db->where('SAP', $details[0]);
+            $this->db->where('SAP', $name[0]);
         }
-        $this->db->where('subject_code', $details[1]);
+        $this->db->where('subject_code', $name[1]);
         
         return $this->db->get('tb_rps_sap')->result();
     }
