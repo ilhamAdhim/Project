@@ -25,7 +25,8 @@ class Classes extends CI_Controller {
 
             $classes = [
                 'response'  => json_decode($result,true),
-                'title'     => 'Classes'
+                'title'     => 'Classes',
+                'message'   => $this->message
             ];
 
             $this->load->view('template/header_admin', $classes);
@@ -48,7 +49,8 @@ class Classes extends CI_Controller {
                     
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/Classes');
+                $this->message = 'Class has successfully <b> created </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -68,7 +70,8 @@ class Classes extends CI_Controller {
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/Classes');
+                $this->message = 'Class has successfully <b> updated </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -84,7 +87,8 @@ class Classes extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/Classes');
+            $this->message = 'Class has successfully <b> deleted </b>';
+            $this->index();
         }else{
             redirect(base_url());
         }

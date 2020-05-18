@@ -3,6 +3,13 @@
     <div class="col-md-9 mr-1 card p-4">
         <h3>Data <?=$title?></h3>
         <hr>
+
+        <?php if (isset($message)) { ?>
+            <div class="alert alert-success" role="alert">
+                <?=$message?>
+            </div>
+        <?php } ?>
+
         <?php if($response['data'] != null){ ?>
             <table class="table-striped table table-bordered" id="data-read">
                 <thead>

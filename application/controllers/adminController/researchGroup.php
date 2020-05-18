@@ -22,8 +22,9 @@ class researchGroup extends CI_Controller {
             $result =  $this->curl->simple_get($this->API);
 
             $researchGroup = [
-                'response' =>  json_decode($result, true),
-                'title' => "Research Group",
+                'response'  =>  json_decode($result, true),
+                'title'     => "Research Group",
+                'message'   => $this->message
             ];
             $this->load->view('template/header_admin', $researchGroup);
             $this->load->view('home/admins/content', $researchGroup);
@@ -43,7 +44,9 @@ class researchGroup extends CI_Controller {
                 ];
                     
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/researchGroup');
+                
+                $this->message = 'Research Group has successfully <b> created </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -60,7 +63,9 @@ class researchGroup extends CI_Controller {
                 ];
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/researchGroup');
+                
+                $this->message = 'Research Group has successfully <b> updated </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -76,7 +81,9 @@ class researchGroup extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/researchGroup');
+            
+            $this->message = 'Research Group has successfully <b> deleted </b>';
+            $this->index();
         }else{
             redirect(base_url());
         }

@@ -20,6 +20,7 @@ class lectureContract extends CI_Controller {
             //vu_hour_distribution
             $lcContract['response'] =json_decode($result,true);
             $lcContract['title'] = 'Lecture Contract';
+            $lcContract['message'] = $this->message;
 
             $this->load->view('template/header_admin', $lcContract);
             $this->load->view('home/admins/content_contract', $lcContract);
@@ -40,7 +41,8 @@ class lectureContract extends CI_Controller {
                 ];
 
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/lectureContract');
+                $this->message = "Lecture Contract has been <b> created </b>";
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -59,7 +61,8 @@ class lectureContract extends CI_Controller {
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/lectureContract');
+                $this->message = "Lecture Contract has been <b> updated </b>";
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -74,7 +77,8 @@ class lectureContract extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/lectureContract');
+            $this->message = "Lecture Contract has been <b> deleted </b>";
+            $this->index();
         }else{
             redirect(base_url());
         }

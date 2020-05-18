@@ -43,14 +43,13 @@
                     redirect('lec_home');
                     
                 }elseif ($identity == "Admin") {
-                    
                     // var_dump($row->name);
                     $loggedInUser = array(
-                            'loggedIn'  => true,
-                            'user'      => $row->name,
-                            'username'  => $username,
-                            'identity'  => $identity 
-                        );
+                        'loggedIn'  => true,
+                        'user'      => $row->name,
+                        'username'  => $username,
+                        'identity'  => $identity 
+                    );
 
                         $this->session->set_userdata( $loggedInUser );
                         
@@ -60,6 +59,7 @@
             else{
                 $data['pesan'] = 'Incorrect username and password';
                 $data['title'] = 'Login Failed';
+
                 $this->load->view('auth/login',$data);  
             } 
         }
@@ -84,9 +84,6 @@
             $this->session->sess_destroy();
             redirect(base_url(),'refresh');
         }
-
-        
-
     }
     
     /* End of file login.php */

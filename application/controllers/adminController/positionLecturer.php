@@ -25,6 +25,7 @@ class positionLecturer extends CI_Controller {
 
                 $lcPosition['response'] = json_decode($result,true);
                 $lcPosition['title'] = 'Position Lecturer';
+                $lcPosition['message'] = $this->message;
 
                 $this->load->view('template/header_admin', $lcPosition);
                 $this->load->view('home/admins/content', $lcPosition);
@@ -47,7 +48,8 @@ class positionLecturer extends CI_Controller {
                 ];
 
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/positionLecturer');
+                $this->message = 'Lecture Position has been <b>created</b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -68,7 +70,8 @@ class positionLecturer extends CI_Controller {
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/positionLecturer');
+                $this->message = 'Lecture Position has been <b>updated</b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -83,7 +86,8 @@ class positionLecturer extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/positionLecturer');
+            $this->message = 'Lecture Position has been <b>deleted</b>';
+            $this->index();
         }else{
             redirect(base_url());
         }
@@ -142,7 +146,9 @@ class positionLecturer extends CI_Controller {
                 delete_files('C:/xampp/htdocs/Project-dataDosen/assets/uploads/csv');      
                     
             }
-            redirect('adminController/positionLecturer');
+            
+            redirect('adminController/positionLecturer','refresh');
+            
     }
 
     public function template(){

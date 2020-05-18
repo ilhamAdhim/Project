@@ -22,6 +22,7 @@ class HourDist extends CI_Controller {
             //vu_hour_distribution
             $lcHour['response'] =json_decode($result,true);
             $lcHour['title'] = 'Hour Dist';
+            $lcHour['message'] = $this->message;
 
             $this->load->view('template/header_admin', $lcHour);
             $this->load->view('home/admins/content', $lcHour);
@@ -46,7 +47,8 @@ class HourDist extends CI_Controller {
                 ];
 
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/HourDist');
+                $this->message = 'Hour Dist has been successfully <b> created </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -69,7 +71,8 @@ class HourDist extends CI_Controller {
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/HourDist');
+                $this->message = 'Hour Dist has been successfully <b> updated </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -84,7 +87,8 @@ class HourDist extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/HourDist');
+            $this->message = 'Hour Dist has been successfully <b> deleted </b>';
+            $this->index();
         }else{
             redirect(base_url());
         }

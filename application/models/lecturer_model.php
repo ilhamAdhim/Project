@@ -16,7 +16,6 @@ class lecturer_model extends CI_Model {
     
     public function lecPositionYear($code){
         $this->db->select('position,year');
-        
         return $this->db->get_where('vu_position_2019',['code' =>$code])->result();   
     }
     // take lecturer's group research and it's priority on the database

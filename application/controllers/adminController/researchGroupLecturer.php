@@ -24,6 +24,7 @@ class researchGroupLecturer extends CI_Controller {
             //vu_research        
             $lcResearch['response'] = json_decode($result,true);
             $lcResearch['title'] = 'Research Group Lecturer';
+            $lcResearch['message'] = $this->message;
 
             $this->load->view('template/header_admin', $lcResearch);
             $this->load->view('home/admins/content', $lcResearch);
@@ -43,7 +44,9 @@ class researchGroupLecturer extends CI_Controller {
                 ];
         
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));            
-                redirect('adminController/researchGroupLecturer');
+                
+                $this->message = 'Research Group Lecturer has successfully <b> created </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -62,7 +65,9 @@ class researchGroupLecturer extends CI_Controller {
                 ];
         
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));            
-                redirect('adminController/researchGroupLecturer');
+                
+                $this->message = 'Research Group Lecturer has successfully <b> updated </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -77,7 +82,9 @@ class researchGroupLecturer extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/researchGroupLecturer');
+            
+            $this->message = 'Research Group Lecturer has successfully <b> deleted </b>';
+            $this->index();
         }else{
             redirect(base_url());
         }   

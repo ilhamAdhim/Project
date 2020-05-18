@@ -26,6 +26,7 @@ class DPALecturer extends CI_Controller {
 
             $lcDPA['response'] = json_decode($result,true);
             $lcDPA['title'] = 'DPA Lecturer';
+            $lcDPA['message'] = $this->message;
 
             $this->load->view('template/header_admin', $lcDPA);
             $this->load->view('home/admins/content', $lcDPA);
@@ -47,7 +48,9 @@ class DPALecturer extends CI_Controller {
                 
 
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/dpaLecturer');
+                
+                $this->message = 'DPA Lecturer has been successfully <b> created </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -66,7 +69,9 @@ class DPALecturer extends CI_Controller {
                 ];
                 
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/dpaLecturer');
+                
+                $this->message = 'DPA Lecturer has been successfully <b> updated </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -81,7 +86,9 @@ class DPALecturer extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/dpaLecturer');
+           
+            $this->message = 'DPA Lecturer has been successfully <b> deleted </b>';
+            $this->index();
         }else{
             redirect(base_url());
         }

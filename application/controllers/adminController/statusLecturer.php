@@ -24,7 +24,8 @@ class statusLecturer extends CI_Controller {
             // vu_lecturer_status
             $lcStatus = [
                 'response'  => json_decode($result,true),
-                'title'     => 'Status Lecturer'
+                'title'     => 'Status Lecturer',
+                'message'   => $this->message
             ];
     
             $this->load->view('template/header_admin', $lcStatus);
@@ -46,7 +47,9 @@ class statusLecturer extends CI_Controller {
                     
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/statusLecturer');
+                
+                $this->message= 'Status Lecturer has successfully <b> created </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -65,7 +68,9 @@ class statusLecturer extends CI_Controller {
 
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/statusLecturer');
+                
+                $this->message= 'Status Lecturer has successfully <b> updated </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -81,7 +86,9 @@ class statusLecturer extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/statusLecturer');
+            
+            $this->message= 'Status Lecturer has successfully <b> deleted </b>';
+            $this->index();
         }else{
             redirect(base_url());
         }

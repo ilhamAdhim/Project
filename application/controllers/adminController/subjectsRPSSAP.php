@@ -24,6 +24,7 @@ class SubjectsRPSSAP extends CI_Controller {
 
             $rps_sap['response'] = json_decode($result,true);
             $rps_sap['title'] = 'Subjects RPS SAP';
+            $rps_sap['message'] = $this->message;
 
             $this->load->view('template/header_admin', $rps_sap);
             $this->load->view('home/admins/content_rps_sap', $rps_sap);
@@ -43,7 +44,8 @@ class SubjectsRPSSAP extends CI_Controller {
                 ];
 
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/subjectsRPSSAP');
+                $this->message = 'RPS and SAP has successfully <b> created </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -61,7 +63,8 @@ class SubjectsRPSSAP extends CI_Controller {
                 ];
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-                redirect('adminController/subjectsRPSSAP');
+                $this->message = 'RPS and SAP has successfully <b> updated </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -76,7 +79,8 @@ class SubjectsRPSSAP extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/subjectsRPSSAP');
+            $this->message = 'RPS and SAP has successfully <b> deleted </b>';
+            $this->index();
         }else{
             redirect(base_url());
         }
@@ -106,12 +110,12 @@ class SubjectsRPSSAP extends CI_Controller {
         ];
 
         // slice the filename into 3 parts
-        $details = explode('_',$filename);
         $file = explode('.',$filename);
+        $details = explode('_',$file[0]);
         $data = [
             'subject_code'       => $details[1],
-            'RPS'       => $details[0] == 'RPS' ? $file[0] : " ",
-            'SAP'  => $details[0] == 'SAP' ? $file[0] : " "
+            'RPS'       => $details[0] == 'RPS' ? $file[0] : 'RPS_'.$details[1].'_'.$details[2],
+            'SAP'  => $details[0] == 'SAP' ? $file[0] : 'SAP_'.$details[1].'_'.$details[2]
         ];
 
 
@@ -121,9 +125,11 @@ class SubjectsRPSSAP extends CI_Controller {
             $this->load->view('template/header_admin');
             $this->load->view('home/admins/error', $error);
             $this->load->view('template/footer_admin');
-        }else{            
-            if(empty($this->admin_model->getOneSubjectsRPSSAP($file))){
+        }else{  
+        //   If no existing subject code's filename input in the database then create 
+            if(!$this->admin_model->checkSubjectCode($details)){
                 $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+        //  Otherwise, only update the data
             }else{
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
             }

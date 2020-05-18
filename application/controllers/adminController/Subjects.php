@@ -21,7 +21,8 @@ class Subjects extends CI_Controller {
             $result = $this->curl->simple_get($this->API);
             $subjects = [
                 'response'  => json_decode($result,true),
-                'title'     => 'Subjects'
+                'title'     => 'Subjects',
+                'message'   => $this->message
             ];
 
             $this->load->view('template/header_admin', $subjects);
@@ -49,7 +50,9 @@ class Subjects extends CI_Controller {
                     
                 $result = $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/Subjects');
+                
+                $this->message='Subjects has successfully <b> created </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -73,7 +76,9 @@ class Subjects extends CI_Controller {
                     
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
                     
-                redirect('adminController/Subjects');
+                
+                $this->message='Subjects has successfully <b> updated </b>';
+                $this->index();
             }
         }else{
             redirect(base_url());
@@ -88,7 +93,9 @@ class Subjects extends CI_Controller {
                 ];
             }
             $this->curl->simple_delete($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
-            redirect('adminController/Subjects');
+            
+            $this->message='Subjects has successfully <b> deleted </b>';
+            $this->index();
         }else{
             redirect(base_url());
         }

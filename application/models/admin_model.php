@@ -298,10 +298,21 @@ class admin_model extends CI_Model {
 //========================================================================================================================
 
     //RPS_SAP
-    
     public function getSubjectsRPSSAP(){
         $this->db->order_by('SAP');
         return $this->db->get('tb_rps_sap')->result();
+    }
+
+    public function checkSubjectCode($name){
+        
+        $listSubjectCode = $this->db->get('tb_rps_sap')->result_array();
+        foreach ($listSubjectCode as $key => $value) {
+            if($value['subject_code'] === $name[1]){
+                return true;
+            }
+        }
+        return false;
+        
     }
 
     public function getOneSubjectsRPSSAP($name){
