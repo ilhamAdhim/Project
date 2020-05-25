@@ -36,16 +36,14 @@ class lecturer_model extends CI_Model {
     public function getPersonalInfo($code){
         return $this->db->get_where('vu_lecturer_personal',['code' => $code])->result();
     }
+
     
     public function getAccount($code){
         $this->db->select('username,email');
         return $this->db->get_where('tb_lecturerlist',['code' => $code])->result();
     }
 
-    public function getFiles($subject_code){
-        $this->db->select('RPS,SAP');
-        return $this->db->get_where('tb_rps_sap',['subject_code' => $subject_code])->result();
-    }
+    
 
     public function updatePersonalInfo(){
             $data = [
@@ -65,7 +63,31 @@ class lecturer_model extends CI_Model {
         $this->db->update('tb_lecturerlist', $data);
     }
 
+    public function uploadContract(){
+        $this->db->where('subject_code', $data['subject_code']);
+        $this->db->update('tb_contract_files', $data);
+    }
 
+    // Last feature - 25 May 2020
+    public function isSubjectDownloadable($data){
+        // get the list of subject per lecturer
+        $result = [];
+
+        foreach ($data as $key => $value) {
+            // Fetch info from tb_contract_files
+            $this->db->select('subject_code');
+            $source = $this->db->get_where('tb_contract_files ',['subject_code' => $value->subject_code])->result();
+            $isExist = empty($source) ? false : true;
+            array_push($result, $isExist);
+        }
+        return $result;
+    }
+
+    public function getFileContract($condition){
+        $this->db->where('code', $condition['code']);
+        $this->db->where('subject_code', $condition['subject_code']);
+        return $this->db->get('vu_contracts_lecturer')->result();
+    }
 }
     
 /* End of file lecturer_model.php */

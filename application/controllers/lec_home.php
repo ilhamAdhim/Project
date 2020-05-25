@@ -16,18 +16,21 @@ class lec_home extends CI_Controller {
     
     public function index()
     {
-        
         if($this->session->userdata('loggedIn')){
             $code = $this->session->userdata('code');
+            $teach_subjects = $this->lecturer_model->lecSubject($code);
             
+            $isDownloadable = $this->lecturer_model->isSubjectDownloadable($teach_subjects);
+
             $data = array(
                 'title'  => 'Lecturer Home',
                 'code' => $code,
                 'position' => $this->lecturer_model->lecPositionYear($code),
                 'research' => $this->lecturer_model->lecResearchPriority($code),
-                'subject' => $this->lecturer_model->lecSubject($code),
+                'subject' => $teach_subjects,
                 'info'  => $this->lecturer_model->getPersonalInfo($code),
                 'account' => $this->lecturer_model->getAccount($code),
+                'isDownloadable' => $isDownloadable
             );
 
             $this->session->set_userdata($data);
@@ -64,48 +67,23 @@ class lec_home extends CI_Controller {
         redirect('lec_home');
         
     }
-
-    public function downloadFile(){
-        $this->load->helper('download');
-        $type = $this->input->post('type') === '1' ? 'RPS' : 'SAP';
-        $filename = $this->input->post('filename').'.docx';
-        // echo $type;
-        $data = file_get_contents(base_url('assets/uploads/'.$type.'/'.$filename));
-        force_download($filename , $data);
-    }
-
-    public function uploadFile(){
-        $filename = $_FILES['userfile']['name'];
-        $type = substr($filename , 0 ,3) === 'RPS' ? 'RPS' : 'SAP';
-        $uploadPath =  './assets/uploads/'.$type.'/';
-        
-        $config = [
-            'upload_path'   => $uploadPath,
-            'overwrite'     => TRUE,
-            'allowed_types' => 'pdf|doc|docx'
-        ];
-
-        $this->upload->initialize($config);
-        if ( ! $this->upload->do_upload('userfile')){
-            $error = array('error' => $this->upload->display_errors());
-            $this->load->view('template/header_admin');
-            $this->load->view('home/admins/error', $error);
-            $this->load->view('template/footer_admin');
-        }else{            
-            
-            redirect('adminController/subjectsRPSSAP');
-        }
-    }
-
+   
     public function downloadContract(){
         $this->load->helper('download');
-        $filename = $this->input->post('filename').'.docx';
+        $condition = [
+            'subject_code'  => $this->input->post('subject_code'),
+            'code'          => $this->input->post('code')
+        ];
+
+        $query = $this->lecturer_model->getFileContract($condition);
+        $filename = $query[0]->contract_file.'.docx';
         $data = file_get_contents(base_url('assets/uploads/kontrakPerkuliahan/'.$filename));
         force_download($filename , $data);
+        // var_dump($filename);
     }
 
     public function uploadContract(){
-        $filename = $_FILES['userfile']['name'];
+        $filename = $_FILES['filename']['name'];
         $uploadPath =  './assets/uploads/kontrakPerkuliahan/';
         
         $config = [
@@ -119,9 +97,12 @@ class lec_home extends CI_Controller {
 
         $data = [
             'subject_code'  => $details[1],
-            'contractName'  => $fileName,
+            'contract_file'  => $filename,
             'uploaded_by'   => $this->session->userdata('code')
         ];
+
+        // Upload the data by calling the model
+        $this->lecturer_model->uploadContract($data);
 
     }
 }
