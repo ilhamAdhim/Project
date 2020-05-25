@@ -11,6 +11,8 @@ class lectureContract extends CI_Controller {
         $this->API = 'http://localhost/Project-dataDosen/api/admins/lectureContract_API';
         $this->load->model('admin_model');
         $this->load->library('Excel');
+        $this->load->library('upload');
+
     }
 
     public function index(){
@@ -20,6 +22,7 @@ class lectureContract extends CI_Controller {
             //vu_hour_distribution
             $lcContract['response'] =json_decode($result,true);
             $lcContract['title'] = 'Lecture Contract';
+            
             $lcContract['message'] = $this->message;
 
             $this->load->view('template/header_admin', $lcContract);
@@ -241,8 +244,8 @@ class lectureContract extends CI_Controller {
 
         $data = [
             'subject_code'  => $details[1],
-            'contract_file'  => $fileName,
-            'uploaded_by'   => $this->session->userdata('code')            
+            'contract_file'  => $filename,
+            'uploaded_by'   => $this->session->userdata('code')
         ];
 
         $this->upload->initialize($config);
@@ -257,7 +260,7 @@ class lectureContract extends CI_Controller {
             }else{
                 $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
             }
-            redirect('adminController/subjectsRPSSAP');
+            $this->index();
         }
 
     }

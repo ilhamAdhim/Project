@@ -63,11 +63,7 @@ class lecturer_model extends CI_Model {
         $this->db->update('tb_lecturerlist', $data);
     }
 
-    public function uploadContract(){
-        $this->db->where('subject_code', $data['subject_code']);
-        $this->db->update('tb_contract_files', $data);
-    }
-
+    
     // Last feature - 25 May 2020
     public function isSubjectDownloadable($data){
         // get the list of subject per lecturer
@@ -87,6 +83,25 @@ class lecturer_model extends CI_Model {
         $this->db->where('code', $condition['code']);
         $this->db->where('subject_code', $condition['subject_code']);
         return $this->db->get('vu_contracts_lecturer')->result();
+    }
+
+    public function checkSubjectCode($param){
+        $listSubjectCode = $this->db->get('tb_contract_files')->result_array();
+        foreach ($listSubjectCode as $key => $value) {
+            if($value['subject_code'] === $param){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function updateContract($data){
+        $this->db->where('subject_code', $data['subject_code']);
+        $this->db->update('tb_contract_files', $data);
+    }
+
+    public function insertContract($data = null){
+        $this->db->insert('tb_contract_files', $data);
     }
 }
     

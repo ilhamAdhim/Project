@@ -77,32 +77,47 @@ class lec_home extends CI_Controller {
 
         $query = $this->lecturer_model->getFileContract($condition);
         $filename = $query[0]->contract_file.'.docx';
-        $data = file_get_contents(base_url('assets/uploads/kontrakPerkuliahan/'.$filename));
+        $data = file_get_contents(base_url('assets/uploads/KontrakPerkuliahan/'.$filename));
         force_download($filename , $data);
         // var_dump($filename);
     }
 
     public function uploadContract(){
-        $filename = $_FILES['filename']['name'];
-        $uploadPath =  './assets/uploads/kontrakPerkuliahan/';
-        
+        $filename = $_FILES['userfile']['name'];
+        $uploadPath =  './assets/uploads/KontrakPerkuliahan/';
+        $file = explode('.',$filename);
+
         $config = [
             'upload_path'   => $uploadPath,
             'overwrite'     => TRUE,
             'allowed_types' => 'pdf|doc|docx'
         ];
 
-        // slice the filename into 3 parts
-        $details = explode('_',$filename);
-
         $data = [
-            'subject_code'  => $details[1],
-            'contract_file'  => $filename,
+            'subject_code'  => $this->input->post('subject_code'),
+            'contract_file'  => $file[0],
             'uploaded_by'   => $this->session->userdata('code')
         ];
 
+        $this->upload->initialize($config);
+
+
+        if ( ! $this->upload->do_upload('userfile')){
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('template/header_admin');
+            $this->load->view('home/admins/error', $error);
+            $this->load->view('template/footer_admin');
+        }else{  
         // Upload the data by calling the model
-        $this->lecturer_model->uploadContract($data);
+        //   If no existing subject code's filename input in the database then create 
+            if(!$this->lecturer_model->checkSubjectCode($data['subject_code'])){
+                $this->lecturer_model->insertContract($data);
+        //  Otherwise, only update the data
+            }else{
+                $this->lecturer_model->updateContract($data);
+            }
+            redirect('lec_home');
+        }
 
     }
 }

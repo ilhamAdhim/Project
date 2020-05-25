@@ -16,6 +16,27 @@
     <hr>
 
     <?php if($title == 'Subjects RPS SAP' || $title == 'Lecture Contract'){ ?>
+
+    <div class="alert alert-warning">
+        <strong> Please upload the file with format as follows:  </strong>
+        <br><br>    
+            <?php if($title == 'Subjects RPS SAP'){ ?>
+                    RPS_ <b>kode mk_  nama matkul </b>
+
+                    <br>
+                    <br>
+                    <div class="text-center">
+                        <strong>OR</strong>
+                    </div>
+                    <br>
+
+                    SAP_ <b>kode mk_  nama matkul </b>
+            <?php } elseif($title == 'Lecture Contract'){ ?>
+            <br>
+                Kontrak_<b>kode mk_  nama matkul </b>
+            <?php } ?>
+    </div>
+        <hr>
         <form action="<?=str_replace(' ','',$title)?>/uploadFile" method="post" enctype="multipart/form-data">
             <input name="userfile" id="userfile" type="file" />
             <input class="btn btn-info" type="submit" value="Upload docx file" disabled />
