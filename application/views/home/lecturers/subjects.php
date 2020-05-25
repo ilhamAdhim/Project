@@ -1,10 +1,5 @@
 <div class="row mx-auto">
   <!-- SUBJECTS -->
-<?=var_dump($subject)?>
-<br><br>
-<br>
-<br>
-<?=var_dump($isDownloadable)?>
   <!-- If the lecturer teach more than one subject -->
   <?php if(!empty($subject) && count($subject) != 1){ ?>
     <div class="container">
@@ -29,13 +24,12 @@
               <div class="p-2 flex-fill">
                   <div class="dropdown mx-auto text-center">
                   <!-- Dropdown upload -->
-                      <!-- <input type="hidden" name="filename" value="<?=$value->class?>"> -->
                         <button  class="btn btn-primary dropdown-toggle" style="width:9em" data-toggle="dropdown"> 
                             Upload
                         </button>
-                          <form action="lec_home/uploadContract" method="POST">
+                          <form action="lec_home/uploadContract" method="POST" enctype="multipart/form-data">
+                          <input type="hidden" name="subject_code" value="<?=$value->subject_code?>">  
                           <ul class="dropdown-menu">
-                            <!-- <li><a href="#">Action</a></li> -->
                           <?php if($isDownloadable[$count]){ ?>
                             <div class="alert alert-success" role="alert">
                               <strong>Update the contract file</strong>
@@ -44,10 +38,15 @@
                             <div class="alert alert-warning" role="alert">
                               <strong>Be the first to upload</strong>
                             </div>
-                          <?php } ?>
-                            <li class="mx-auto p-2"><input type="file" name="filename" id="filename"></li>
+                          <?php } 
+                          
+                            $userfile = 'userfile'.$count;
+                          ?>
+                              <input type="hidden" name="identifier" value="<?=$userfile?>">  
+                              <input name="userfile" id="userfile" type="file" />
                             <hr>
-                            <li class="text-center"> <input type="submit" class="btn btn-info" value="Submit"> </li>
+                            <li class="text-center"> 
+                            <input type="submit" class="btn btn-info" value="Submit"> </li>
                           </form> 
                           </ul>
             
