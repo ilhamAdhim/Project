@@ -350,6 +350,14 @@ public function getLectureContract(){
     return $this->db->get('tb_contract_files')->result();
 }
 
+public function getOneLectureContract($name){
+    $details = explode('_',$name);
+
+    $this->db->where('contract_file', $name);
+    $this->db->where('subject_code', $details[1]);
+    return $this->db->get('tb_contract_files')->result();
+}
+
 public function createLectureContract($data = null){
     $this->db->insert('tb_contract_files', $data);
 }

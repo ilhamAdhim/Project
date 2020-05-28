@@ -64,7 +64,7 @@
                 </div>
                 <div class="mt-3  align-items-center">
 
-                    <form action="<?=str_replace(' ','',$title)?>/upload" method="post" enctype="multipart/form-data">
+                    <form action="upload" method="post" enctype="multipart/form-data">
                         <input name="file" id="fileInput" type="file" />
                         <input class="btn btn-info" type="submit" value="Upload file" disabled />
                     </form>
@@ -74,12 +74,12 @@
                 <h4>Get Excel Data</h4> <br>
                 <p>Get template of CSV or Export the whole data </p>
                 <div class="mt-3 pull-left align-items-center">
-                    <form method="post" action="<?=str_replace(' ','',$title)?>/template">
+                    <form method="post" action="template">
                         <input type="submit" name="template" class="btn btn-success" value="CSV Template" />
                     </form>
                 </div>
                 <div class="mt-3 pull-right align-items-center">
-                    <form method="post" action="<?=str_replace(' ','',$title)?>/export">
+                    <form method="post" action="export">
                         <input type="submit" name="export" class="btn btn-success" value="Export" />
                     </form>
                 </div>

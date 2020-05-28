@@ -10,6 +10,7 @@ class lectureContract extends CI_Controller {
         parent::__construct();
         $this->API = 'http://localhost/Project-dataDosen/api/admins/lectureContract_API';
         $this->load->model('admin_model');
+        $this->load->helper('file');
         $this->load->library('Excel');
         $this->load->library('upload');
 
@@ -144,9 +145,8 @@ class lectureContract extends CI_Controller {
     public function template(){
         $object = new PHPExcel();
         $object->setActiveSheetIndex(0);
-  
         // On excel columns
-        $table_columns = array("subject_code", "week" , "date" , "topics","method");
+        $table_columns = array("subject_code", "contract_file" , "uploaded_by");
 
         $column = 0;
 
@@ -225,13 +225,13 @@ class lectureContract extends CI_Controller {
     public function downloadFile(){
         $this->load->helper('download');
         $filename = $this->input->post('filename').'.docx';
-        $data = file_get_contents(base_url('assets/uploads/kontrakPerkuliahan/'.$filename));
+        $data = file_get_contents(base_url('assets/uploads/KontrakPerkuliahan/'.$filename));
         force_download($filename , $data);
     }
-
+    
     public function uploadFile(){
         $filename = $_FILES['userfile']['name'];
-        $uploadPath =  './assets/uploads/kontrakPerkuliahan/';
+        $uploadPath =  './assets/uploads/KontrakPerkuliahan/';
         
         $config = [
             'upload_path'   => $uploadPath,
@@ -240,12 +240,13 @@ class lectureContract extends CI_Controller {
         ];
 
         // slice the filename into 3 parts
-        $details = explode('_',$filename);
+        $resultFilename = explode('.',$filename);
+        $details = explode('_',$resultFilename[0]);
 
         $data = [
             'subject_code'  => $details[1],
-            'contract_file'  => $filename,
-            'uploaded_by'   => $this->session->userdata('code')
+            'contract_file'  => $resultFilename[0],
+            'uploaded_by'   => 'Admin'
         ];
 
         $this->upload->initialize($config);
@@ -254,15 +255,18 @@ class lectureContract extends CI_Controller {
             $this->load->view('template/header_admin');
             $this->load->view('home/admins/error', $error);
             $this->load->view('template/footer_admin');
-        }else{            
-            if(empty($this->admin_model->getOneSubjectsRPSSAP($filename))){
-                $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+        }else{  
+        //   If no existing subject code's filename input in the database then create 
+            if(empty($this->admin_model->getOneLectureContract($filename))){
+               $this->curl->simple_post($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+               $this->message = "New Contract <b> added </b>";
+        //  Otherwise, only update the data
             }else{
-                $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+               $this->curl->simple_put($this->API , $data ,array(CURLOPT_BUFFERSIZE => 10));
+               $this->message = "Existing Contract <b> updated </b>";
             }
             $this->index();
         }
-
     }
 
 }
