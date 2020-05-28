@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class lec_home extends CI_Controller {
 
-    var $API ="";
     public function __construct()
     {
         parent::__construct();
@@ -100,9 +99,8 @@ class lec_home extends CI_Controller {
         ];
 
         $this->upload->initialize($config);
-
-
-        if ( ! $this->upload->do_upload('userfile')){
+        
+        if ( !$this->upload->do_upload('userfile') ){
             $error = array('error' => $this->upload->display_errors());
             $this->load->view('template/header_admin');
             $this->load->view('home/admins/error', $error);

@@ -111,10 +111,10 @@
         <script>
           $(".alert").alert();
         </script>
-        
 
+
+      </form>
     </div>
-    </form>
   </div>
 
 </div>

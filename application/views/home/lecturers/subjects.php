@@ -6,6 +6,7 @@
     <div class="card-deck">
       <!-- Count variable will be used to access the array of isDownloadable variable -->
       <?php $count = -1?>
+      
       <?php foreach ($subject as $key => $value) { ?>
       <?php $count++;?>
       <div class="card">
@@ -31,7 +32,7 @@
                 <button class="btn btn-primary dropdown-toggle" style="width:9em" data-toggle="dropdown">
                   Upload
                 </button>
-                <form action="lec_home/uploadContract" method="POST">
+                <form action="lec_home/uploadContract" method="POST" enctype="multipart/form-data">
                   <input type="hidden" name="subject_code" value="<?=$value->subject_code?>">
                   <ul class="dropdown-menu">
                     <?php if($isDownloadable[$count]){ ?>
@@ -42,12 +43,8 @@
                     <div class="alert alert-warning" role="alert">
                       <strong>Be the first to upload</strong>
                     </div>
-                    <?php } 
-                            
-                              $userfile = 'userfile'.$count;
-                            ?>
-                    <input type="hidden" name="identifier" value="<?=$userfile?>">
-                    <input name="userfile" type="file" />
+                    <?php } ?>
+                    <input name="userfile" id="userfile" type="file" />
                     <hr>
                     <li class="text-center">
                       <input type="submit" class="btn btn-info" value="Submit"> </li>
