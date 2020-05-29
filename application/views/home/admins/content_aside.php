@@ -37,8 +37,8 @@
             <?php } ?>
     </div>
         <hr>
-        <form action="uploadFile" method="post" enctype="multipart/form-data">
-            <input name="userfile" id="userfile" type="file" />
+        <form action="<?=str_replace(' ','',$title)?>/uploadFile" method="post" enctype="multipart/form-data">
+            <input name="userfile" id="userfile" type="file" style="width:100%"/>
             <input class="btn btn-info" type="submit" value="Upload docx file" disabled />
         </form>
         <hr>

@@ -74,12 +74,12 @@
                 <h4>Get Excel Data</h4> <br>
                 <p>Get template of CSV or Export the whole data </p>
                 <div class="mt-3 pull-left align-items-center">
-                    <form method="post" action="template">
+                    <form method="post" action="<?=str_replace(' ','',$title)?>/template">
                         <input type="submit" name="template" class="btn btn-success" value="CSV Template" />
                     </form>
                 </div>
                 <div class="mt-3 pull-right align-items-center">
-                    <form method="post" action="export">
+                    <form method="post" action="<?=str_replace(' ','',$title)?>/export">
                         <input type="submit" name="export" class="btn btn-success" value="Export" />
                     </form>
                 </div>

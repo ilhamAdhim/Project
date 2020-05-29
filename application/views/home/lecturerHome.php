@@ -51,7 +51,7 @@
 
               <!-- Kontrak Perkuliahan  -->
               <hr>
-              <h2 id="subjects"> Kontrak Perkuliahan </h2>
+              <h2 id="subjects"> <b> Kontrak Perkuliahan</b> </h2>
               <br>
 
               <?php $this->load->view('home/lecturers/subjects'); ?>
@@ -59,7 +59,7 @@
 
               <!-- RESEARCH GROUP -->
               <hr>
-              <h2 id="researchGroup"> Research Group </h2>
+              <h2 id="researchGroup"> <b> Research Group</b> </h2>
               <?php $this->load->view('home/lecturers/researchGroup');?>
 
               <hr>
