@@ -260,7 +260,6 @@ class SubjectsRPSSAP extends CI_Controller {
         $object_writer->save('php://output');
   
     }
-
 }
 
 ?>

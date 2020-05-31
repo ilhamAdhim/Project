@@ -54,21 +54,6 @@
             font-feature-settings: 'liga';
         }
     </style>
-    <!--   <nav class="navbar navbar-expand-md navbar-dark">
-            
-            
-            <div class="collapse navbar-collapse" >
-                
-               
-
-
-                <ul class="navbar-nav ml-auto">
-                    
-
-                </ul>
-            </div>
-        </nav>
-     -->
 
     <nav class="navbar navbar-expand-md navbar-dark" style="background-color:#244282;">
         <a class="navbar-brand" href="#">

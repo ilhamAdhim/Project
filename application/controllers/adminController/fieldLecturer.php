@@ -201,7 +201,7 @@ class fieldLecturer extends CI_Controller {
         foreach($lec_field as $row){
           $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->code);
           $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->name);
-          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->field_of_study);
+          $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->field);
           $excel_row++;
         }
 
